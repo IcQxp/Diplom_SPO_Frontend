@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { DocumentList } from "./FilesList.props";
+import styles from "./FilesList.module.scss"
 
 export const FilesList = () => {
-const [data,setData] = useState(); 
+const [data,setData] = useState<DocumentList[]>([]); 
+const [status,setStatus] = useState<number>(0);
   useEffect(() => {
 
     const FetchData = async () => {
@@ -16,6 +19,7 @@ const [data,setData] = useState();
       });
 
       setData(response.data);
+      setStatus(response.status);
       console.log(response);
     }
 
@@ -26,8 +30,17 @@ const [data,setData] = useState();
   )
 
   return (
-    <div>
+    <main className={styles.page}>
+      {data&&data.map(elem => <div key={elem.filePath}>
+        <div> ID: {elem.documentId}</div>
+        <div> File: {elem.filePath  }
+          </div>
+        </div>
+        )}
 
-    </div>
+        {status===500&&"Ошибка на сервере"}
+        {status===403&&"Нет доступа"}
+
+    </main>
   )
 }

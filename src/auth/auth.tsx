@@ -3,34 +3,56 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import styles from "./auth.module.scss"
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/userSlice';
 
 interface JwtPayloadNew extends JwtPayload {
   unique_name: string
 }
 
+export interface UserResponse {
+  lastname?: string;
+  firstname?: string;
+  patronymic?: string;
+  login?: string;
+  gender?: string;
+  id: number;
+  email?: string;
+  telephone?: string;
+  rolename?: string;
+  roleId: number;
+  birthDate: string;
+}
+
 const AuthComponent = () => {
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
       const response = await axios.post('https://localhost:7003/api/auth/login', {
         username: login,
         password: password,
+        isEmployee: false,
       });
 
       if (response.data.token) {
         setToken(response.data.token);
         localStorage.setItem('token', response.data.token);
-        setError(null);
+        setError("");
       }
       alert(response.status==200?"Успешно":"Ошибка");
       if (response.status==200)
+      {
         navigate("/home");
+        
+        dispatch(setUser(response.data.user));
+      }
     } catch (err: any) {
       console.error(err);
       setError(err.response?.data?.message || 'Ошибка при получении токена');

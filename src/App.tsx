@@ -5,6 +5,7 @@ import { Layout } from './components/Layout/Layout';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import AuthComponent from './auth/auth';
 import { FilesList } from './components/FilesList/FilesList';
+import { DocumentPage } from './pages/Documents/DocumentPage/DocumentPage';
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       <Route path='Auth' element={<AuthComponent/>}/>
       <Route path='Admin'>
         <Route path='Documents' element={<FilesList/>}/>
+        <Route path='Document/:id' element={<DocumentPage/> }/>
       </Route>
       
       <Route path="*" element={<NotFoundPage />} />
