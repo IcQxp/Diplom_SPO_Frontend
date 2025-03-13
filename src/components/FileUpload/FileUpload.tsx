@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { downloadDocument } from '../../api/api-utils';
 
 const FileUpload = () => {
+  const token = localStorage.getItem("token");
+
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,16 +22,8 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    try {
-      const response = await axios.post('https://localhost:7003/api/documents/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
+    token&&downloadDocument(token,formData);
+    
   };
 
   return (

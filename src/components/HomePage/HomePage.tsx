@@ -9,6 +9,8 @@ import AuthComponent from "../../auth/auth";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { FilesList } from "../FilesList/FilesList";
+import { Link } from "react-router-dom";
+import styles from "./HomePage.module.scss"
 
 export const HomePage:FC = () => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -40,7 +42,8 @@ export const HomePage:FC = () => {
 
 
     return (
-        <div className="container">
+        <div className={styles.container}>
+          <Link to={"/Profile"}>Profile </Link>
       {/* Upload PDF */}
       <form>
         <label><h5>Upload PDF</h5></label>

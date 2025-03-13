@@ -1,0 +1,19 @@
+// commonTypes.ts
+export type Id = number;
+export type Name = string;
+export type Description = string;
+export type FilePath = string;
+export type DateString = string; // Используйте Date, если нужно
+export type TimeString = string; // Используйте Time, если нужно
+export type Score = number | null;
+export type Email = string;
+export type Telephone = string;
+export type Password = string;
+export type GenderCode = string;
+export type GroupNumber = string;
+export type RoleName = string;
+export type StatusName = string;
+export type BirthDate = string; // Используйте Date, если нужно
+export type LessonDate = string; // Используйте Date, если нужно
+export type StartTime = string; // Используйте Time, если нужно
+export type EndTime = string; // Используйте Time, если нужно

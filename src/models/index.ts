@@ -7,24 +7,24 @@ export interface User {
     password: string;
     birthDate: Date; // или Date, в зависимости от формата
 }
-export interface Student extends User {
-    studentId: number;
-    groupId: number;
-    genderCodeNavigation?: Gender; // Если нужно, можно описать более детально
-    grades?: Grade[]; // Определите интерфейс Grade
-    group?: Group; // Определите интерфейс Group
-}
+// export interface Student extends User {
+//     studentId: number;
+//     groupId: number;
+//     genderCodeNavigation?: Gender; // Если нужно, можно описать более детально
+//     grades?: Grade[]; // Определите интерфейс Grade
+//     group?: Group; // Определите интерфейс Group
+// }
 
-export interface Employee extends User {
-    employeeId: number;
-    email: string;
-    telephone: string;
-    roleId: number;
-    documents?: Document[]; // Определите интерфейс Document
-    genderCodeNavigation?: Gender; // Если нужно, можно описать более детально
-    lessons?: Lesson[]; // Определите интерфейс Lesson
-    role?: Role; // Определите интерфейс Role
-}
+// export interface Employee extends User {
+//     employeeId: number;
+//     email: string;
+//     telephone: string;
+//     roleId: number;
+//     documents?: Document[]; // Определите интерфейс Document
+//     genderCodeNavigation?: Gender; // Если нужно, можно описать более детально
+//     lessons?: Lesson[]; // Определите интерфейс Lesson
+//     role?: Role; // Определите интерфейс Role
+// }
 
 export interface Grade {
     // Определите поля, если необходимо
@@ -38,18 +38,194 @@ export interface Gender {
     // Определите поля, если необходимо
 }
 
-export interface User { 
+export interface User {
 
 }
 
-export interface Lesson { 
+export interface Lesson {
 
 }
 
-export interface Document { 
+
+
+export interface Role {
 
 }
 
-export interface Role { 
 
+// interface Criteria {
+//     criteria: any; // Если известен более конкретный тип, замените 'any' на соответствующий тип
+// }
+
+// interface DocumentEF {
+//     documentId: number;
+//     documentType: string | null;
+//     downloadDate: string; // Если известен более конкретный тип даты, используйте его, например, Date или dayjs.Dayjs
+//     employee: string | null; // Если известен более конкретный тип для employee, замените 'string' на соответствующий тип
+//     filePath: string;
+//     score: number | null; // Если score может быть не только числом, но и null, используйте объединенный тип
+//     status: string | null; // Если известен более конкретный тип для status, замените 'string' на соответствующий тип
+//     studentId: number;
+// }
+
+// interface YourMainInterface {
+//     criteria: Criteria | null;
+//     documentId: number;
+//     documentType: string | null;
+//     downloadDate: string;
+//     employee: string | null;
+//     filePath: string;
+//     score: number | null;
+//     status: string | null;
+//     studentId: number;
+// }
+
+
+
+// interfaces.ts
+import {
+    Id,
+    Name,
+    Description,
+    FilePath,
+    DateString,
+    // TimeString,
+    Score,
+    Email,
+    Telephone,
+    Password,
+    GenderCode,
+    GroupNumber,
+    RoleName,
+    StatusName,
+    BirthDate,
+    LessonDate,
+    StartTime,
+    EndTime,
+} from './types';
+
+export interface Criterion {
+    criteriaId: Id;
+    name: Name;
+    description: Description;
+    maxScore: number;
+    documents?: Document[]; // Если нужно
+}
+
+export interface Discipline {
+    disciplineId: Id;
+    name: Name;
+    lessons?: Lesson[]; // Если нужно
+}
+
+export interface Document {
+    documentId: Id;
+    studentId: Id;
+    statusId: Id;
+    employeeId?: Id;
+    filePath: FilePath;
+    downloadDate: DateString; // Можно использовать Date
+    documentTypeId?: Id;
+    criteriaId?: Id;
+    score?: Score;
+    criteria?: Criterion;
+    documentType?: DocumentType;
+    employee?: Employee;
+    status: Status;
+}
+
+export interface DocumentType {
+    documentTypeId: Id;
+    name: Name;
+    description: Description;
+    documents?: Document[]; // Если нужно
+}
+
+export interface Employee {
+    employeeId: Id;
+    genderCode: GenderCode;
+    lastname: Name;
+    firstname: Name;
+    patronymic: Name;
+    birthDate: BirthDate; // Можно использовать Date
+    login: Name;
+    password: Password;
+    email: Email;
+    telephone: Telephone;
+    roleId: Id;
+    documents?: Document[]; // Если нужно
+    genderCodeNavigation?: Gender;
+    lessons?: Lesson[]; // Если нужно
+    role?: Role;
+}
+
+export interface Gender {
+    genderCode: GenderCode;
+    name: Name;
+    employees?: Employee[];
+    students?: Student[];
+}
+
+export interface Grade {
+    gradeId: Id;
+    studentId: Id;
+    lessonId: Id;
+    value: number;
+    lesson?: Lesson;
+    student?: Student;
+}
+
+export interface Group {
+    groupId: Id;
+    groupNumber: GroupNumber;
+    lessons?: Lesson[];
+    students?: Student[];
+}
+
+export interface Lesson {
+    lessonId: Id;
+    disciplineId: Id;
+    groupId: Id;
+    lessonTimeId: Id;
+    lessonDate: LessonDate; // Можно использовать Date
+    employeeId: Id;
+    discipline?: Discipline;
+    employee?: Employee;
+    grades?: Grade[];
+    group?: Group;
+    lessonTime?: LessonTime;
+}
+
+export interface LessonTime {
+    lessonTimeId: Id;
+    startTime: StartTime; // Можно использовать Time
+    endTime: EndTime; // Можно использовать Time
+    lessons?: Lesson[];
+}
+
+export interface Role {
+    roleId: Id;
+    name: RoleName;
+    employees?: Employee[];
+}
+
+export interface Status {
+    statusId: Id;
+    name: StatusName;
+    documents?: Document[];
+}
+
+export interface Student {
+    studentId: Id;
+    lastname: Name;
+    firstname: Name;
+    patronymic: Name;
+    genderCode: GenderCode;
+    groupId: Id;
+    login: Name;
+    password: Password;
+    birthDate: BirthDate; // Можно использовать Date
+    genderCodeNavigation?: Gender;
+    grades?: Grade[];
+    group?: Group;
 }

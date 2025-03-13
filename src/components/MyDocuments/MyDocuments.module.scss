@@ -1,0 +1,89 @@
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	overflow: hidden;
+}
+.table th, .table td {
+	border: 1px solid #888;
+	padding: 10px;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+}
+.table th, .table td {
+	border: 1px solid #888;
+	padding: 10px;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+}
+.table td:hover {
+	background: #fffabe;
+}
+ 
+.table td:hover:before { 
+	background-color: #eee;
+	content: '';  
+	height: 100%;
+	left: -5000px;
+	position: absolute;  
+	top: 0;
+	width: 10000px;   
+	z-index: -2;        
+}
+ 
+.table td:hover:after { 
+	background-color: #eee;
+	content: '';  
+	height: 10000px;    
+	left: 0;
+	position: absolute;  
+	top: -5000px;
+	width: 100%;
+	z-index: -1;        
+}
+
+.table button {
+  border: 0;
+  background-color: rgba(0,0,0,0);
+  &>img {
+    max-width: 20px;
+  } 
+}
+/*//!
+
+
+
+
+*/
+.popupOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+  }
+  
+  .popupContent {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	width: 400px;
+	position: relative;
+  }
+  
+  .popupButtons {
+	margin-top: 15px;
+	display: flex;
+	justify-content: flex-end;
+  }
+  
+  .popupButtons button {
+	margin-left: 10px;
+  }
