@@ -6,5 +6,7 @@ export const endpoints= {
     deleteDocument: (docID:number) => `${BASE_API}/api/documents/delete/${docID}`,
     updateDocument: (docID:number) => `${BASE_API}/api/documents/update/${docID}`,
     downloadDocument: `${BASE_API}/api/documents/upload`,
-    getAllDocuments: `${BASE_API}/api/documents`
+    getAllDocuments: `${BASE_API}/api/documents`,
+    getUserRating: (userID:number) => `${BASE_API}/api/rating/${userID}`,
+    getAllCritea: `${BASE_API}/api/rating/categories`,
 }

@@ -51,6 +51,12 @@ const axiosRequest = async (method: 'get' | 'post' | 'put' | 'delete', url: stri
   const getAllDocuments = (token:string) => 
     axiosRequest("get",endpoints.getAllDocuments,token);
 
+  const getUserRating = (userID:number) => 
+    axiosRequest("get",endpoints.getUserRating(userID));
+
+  const getAllCritea = () => 
+    axiosRequest("get",endpoints.getAllCritea);
+  
 export {
     getUserDocuments,
     getMe,
@@ -58,4 +64,6 @@ export {
     updateDocument,
     downloadDocument,
     getAllDocuments,
+    getUserRating,
+    getAllCritea,
 }
