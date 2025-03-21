@@ -5,7 +5,7 @@ import FileUpload from "../FileUpload/FileUpload";
 import FileDownload from "../FileDownload/FileDownload";
 import { StudentList } from "../StudentList/StudentList";
 import { GenderComponent } from "../Gender/Gender";
-import AuthComponent from "../../auth/auth";
+import AuthComponent from "../../pages/auth/auth";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { FilesList } from "../FilesList/FilesList";

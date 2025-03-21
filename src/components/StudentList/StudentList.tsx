@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 
 interface Student {
-  id: number;
-  name: string;
-  email: string;
-  // Добавьте другие поля, если они есть
+  studentId: number;
+  lastname: string;
+  firstname: string;
+  patronymic: string;
+  genderCode: string;
+  login: string;
+  birthDate: Date;
+  group: string
+
 }
 
 
@@ -44,14 +49,14 @@ export const StudentList = () => {
     return <div>Error: {error}</div>;
   }
 
-  console.log(students);
+  console.table(students);
   return (
     <div>
       <h1>Student List</h1>
       <ul>
         {students.map((student) => (
-          <li key={student.id}>
-            {student.name} - {student.email}
+          <li key={student.studentId}>
+            {student.lastname} - {student.firstname}
           </li>
         ))}
       </ul>

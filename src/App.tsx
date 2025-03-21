@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import { HomePage } from './components/HomePage/HomePage';
 import Layout from './components/Layout/Layout';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-import AuthComponent from './auth/auth';
+import AuthComponent from './pages/auth/auth';
 import { FilesList } from './components/FilesList/FilesList';
 import { DocumentPage } from './pages/Documents/DocumentPage/DocumentPage';
 import { Profile } from './pages/Profile/Profile';
 import { getMe } from './api/api-utils';
 import { setUser } from './store/userSlice';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { RatingPage } from './pages/Ratings/RatingPage/RatingPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
       if (token) {
         try {
           const response = await getMe(token);
-          dispatch(setUser(response.user));
+          dispatch(setUser(response.data.user));
         } catch (error) {
           console.error('Error loading user:', error);
           localStorage.removeItem('token'); // Удаляем токен, если произошла ошибка
@@ -44,7 +45,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/Home" />} />
           <Route path="Home" element={<HomePage />} />
-          <Route path="Rating" element={<HomePage />} />
+          <Route path="Rating" element={<RatingPage />} />
           <Route path="Auth" element={<AuthComponent />} />
 
           {/* Защищенные маршруты */}
@@ -53,8 +54,9 @@ function App() {
               <Route path="Documents" element={<FilesList />} />
               <Route path="Document/:id" element={<DocumentPage />} />
             </Route>
-            <Route path="Profile" element={<Profile />} />
           </Route>
+            <Route path="Profile/:username" element={<Profile />} />
+            {/* <Route path="Profile" element={<Profile />} /> */}
 
           {/* Страница 404 */}
           <Route path="*" element={<NotFoundPage />} />

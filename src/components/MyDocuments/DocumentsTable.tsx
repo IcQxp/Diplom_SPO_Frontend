@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react"
 import { deleteDocument, getUserDocuments, updateDocument } from "../../api/api-utils";
 import { Document } from "../../models";
-import styles from "./MyDocuments.module.scss"
-interface MyDocumentsProps {
+import styles from "./DocumentsTable.module.scss"
+
+interface DocumentsTableProps {
   id: number,
 }
 
-
-export const MyDocuments: FC<MyDocumentsProps> = ({ id }) => {
+export const DocumentsTable: FC<DocumentsTableProps> = ({ id }) => {
   const [Docs, setDocs] = useState<Document[]>();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
@@ -57,8 +57,11 @@ export const MyDocuments: FC<MyDocumentsProps> = ({ id }) => {
 
   const FetchData = async () => {
     if (token)
-      setDocs(await getUserDocuments(token, id));
+      { const docs = await getUserDocuments(token, id);
+        
+      setDocs(docs.data);
   }
+}
 
   return (
     <>{id}
@@ -82,7 +85,7 @@ ID
       </thead>
       <tbody>
         {Docs&&Docs.map((document,index) => 
-          <tr>
+          <tr key={index+1}>
           <td> {index+1}</td>
           <td> {document.criteria?.name}</td>
           <td> {document.criteria?.maxScore}</td>

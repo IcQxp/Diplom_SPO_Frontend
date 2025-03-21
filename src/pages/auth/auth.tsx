@@ -4,7 +4,7 @@ import { jwtDecode, JwtPayload } from 'jwt-decode';
 import styles from "./auth.module.scss"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../store/userSlice';
+import { setUser } from '../../store/userSlice';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import LinearProgress from '@mui/joy/LinearProgress';
@@ -172,7 +172,7 @@ const AuthComponent = () => {
             <label htmlFor='employeeCheckBox' className={styles.checkbox__label}>
               Войти как администратор
             </label>
-            <Checkbox id='employeeCheckBox' defaultChecked onChange={(e) => setIsEmployee(e.target.checked)} />
+            <Checkbox id='employeeCheckBox' checked={isEmployee} onChange={(e) => setIsEmployee(e.target.checked)} />
           </div>
 
           <Button size="small" variant="contained" onClick={handleLogin}>Войти</Button>

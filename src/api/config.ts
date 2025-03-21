@@ -9,4 +9,8 @@ export const endpoints= {
     getAllDocuments: `${BASE_API}/api/documents`,
     getUserRating: (userID:number) => `${BASE_API}/api/rating/${userID}`,
     getAllCritea: `${BASE_API}/api/rating/categories`,
+    getUserByID:  (userID:string) =>  `${BASE_API}/api/students/${userID}`,
+    getTopRating: (count:number,criteriaId?:string) => `${BASE_API}/api/rating/top-students?count=${count}&criteriaId=${criteriaId&&criteriaId}`,
+    getTopRatingWithCriteriaArray: `${BASE_API}/api/rating/top-students-array`,
+
 }

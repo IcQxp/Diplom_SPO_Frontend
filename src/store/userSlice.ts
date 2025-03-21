@@ -1,6 +1,6 @@
 // store/userSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserResponse } from '../auth/auth';
+import { UserResponse } from '../pages/auth/auth';
 
 interface UserState {
   userInfo: UserResponse | null; // Начальное состояние

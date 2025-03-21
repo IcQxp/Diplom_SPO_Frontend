@@ -8,7 +8,7 @@ export const FilesList = () => {
   useEffect(() => {
     const FetchData = async () => {
       const token = localStorage.getItem('token');  // Убедитесь, что вы получили токен после входа
-      token && setData(await getAllDocuments(token));
+      token && setData((await getAllDocuments(token)).data);
     };
     FetchData();
   }, []);
