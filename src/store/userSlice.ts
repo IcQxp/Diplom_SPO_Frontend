@@ -1,15 +1,12 @@
-// store/userSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserResponse } from '../pages/auth/auth';
 
 interface UserState {
-  userInfo: UserResponse | null; // Начальное состояние
-  isLoading: boolean;
+  userInfo: UserResponse | null; 
 }
 
 const initialState: UserState = {
   userInfo: null,
-  isLoading: false
 };
 
 const userSlice = createSlice({
@@ -17,16 +14,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserResponse>) => {
-      state.userInfo = action.payload; // Установка пользователя
+      state.userInfo = action.payload;
     },
     clearUser: (state) => {
-      state.userInfo = null; // Очистка пользователя
-    },
-    setLoading: (state, action) => {
-      state.isLoading = action.payload;
+      state.userInfo = null; 
     },
   },
 });
 
-export const { setUser, clearUser, setLoading } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;
