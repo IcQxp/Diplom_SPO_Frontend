@@ -9,7 +9,7 @@ const Layout: React.FC = () => {
   return (
     <div className={styles.layout}>
       <Header />
-      <main>
+      <main style={{marginTop:"100px"}}>
         <Outlet />
       </main>
       <Footer />

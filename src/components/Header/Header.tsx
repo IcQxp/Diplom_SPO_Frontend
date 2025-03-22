@@ -1,57 +1,17 @@
-// import React, { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import styles from './Header.module.scss';
-// import { RootState } from '../../store/store';
-// import { useLocation, useNavigate } from 'react-router-dom';
-
-// export const Header: React.FC = () => {
-//   const user = useSelector((state: RootState) => state.user.userInfo);
-//   const location = useLocation();
-//   const navigate = useNavigate();
-
-//   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       setIsButtonDisabled(false);
-//     }, 1000);
-
-//     return () => clearTimeout(timer);
-//   }, []);
-
-//   if (location.pathname.toLowerCase() === '/auth') {
-//     return null;
-//   }
-
-//   if (!user) {
-//     return (
-//       <header className={styles.header}>
-//         <button disabled={isButtonDisabled} onClick={() => navigate('/auth')}>Войти</button>
-//       </header>
-//     );
-//   }
-
-//   const fullName = `${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User';
-
-//   return (
-//     <header className={styles.header}>
-//       <div>
-//         <p>Вы: {fullName}</p>
-//       </div>
-//     </header>
-//   );
-// };
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 import { RootState } from '../../store/store';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserResponse } from '../../pages/auth/auth';
+import { Button } from '@mui/material';
 
 export const Header: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user.userInfo);
+  const user: UserResponse | null = useSelector((state: RootState) => state.user.userInfo);
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [Loading, setLoading] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -69,42 +29,36 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Разблокировка кнопки через 1 секунду
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsButtonDisabled(false);
+      setLoading(false);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Не отображать Header на странице /auth
   if (location.pathname.toLowerCase() === '/auth') {
     return null;
   }
 
-  // Если пользователь не авторизован
-  if (!user) {
-    return (
-      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-        <button disabled={isButtonDisabled} onClick={() => navigate('/auth')} className={styles.loginButton}>
-          Войти
-        </button>
-      </header>
-    );
-  }
-
-  // Если пользователь авторизован
-  const fullName = `${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User';
-
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <div className={styles.logo}>MyApp</div>
+      <div style={{ display: "flex", flexDirection: "row", gap: "12px", alignItems: "center" }}>
+        <img src='/icons/socials/logo2.svg' alt='Logo' style={{ maxHeight: "40px" }} />
+        <div className={styles.logo}>MyUniversity</div>
+      </div>
       <div className={styles.userInfo}>
-        <p>Вы: {fullName}</p>
-        <button className={styles.logoutButton} onClick={() => console.log('Logout')}>
-          Выйти
-        </button>
+        {!user ?
+
+          <Button loading={Loading}  onClick={() => navigate('/auth')} variant='contained'>Войти</Button>
+          : <>
+            <p>Вы: {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'}</p>
+            <Button onClick={() => console.log('Logout')} size='medium' variant="contained" sx={{ backgroundColor: "#e53935" }}>
+              Выйти
+            </Button>
+
+          </>
+        }
       </div>
     </header>
   );

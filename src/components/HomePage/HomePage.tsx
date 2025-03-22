@@ -1,23 +1,28 @@
+
+import { nivoDiagramm } from "../Ratings/RatingWithArray";
+import { getTopRating } from "../../api/api-utils";
+import { Button } from "@mui/material";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import FileUpload from "../FileUpload/FileUpload";
 import FileDownload from "../FileDownload/FileDownload";
-import { StudentList } from "../StudentList/StudentList";
 import { GenderComponent } from "../Gender/Gender";
-import AuthComponent from "../../pages/auth/auth";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { FilesList } from "../FilesList/FilesList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.scss"
 import { ResponsiveRadar } from '@nivo/radar'
+import { BarChart } from "@mui/icons-material"
+
 
 export const HomePage: FC = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const [pdfFile, setPdfFile] = useState<string | null>(null);
   const [pdfError, setPdfError] = useState<string>('');
 
+  const navigate = useNavigate();
   const allowedFiles = ['application/pdf'];
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     let selectedFile = e.target.files?.[0];
@@ -41,47 +46,65 @@ export const HomePage: FC = () => {
     }
   }
 
-
-
-  const data = [
-    {
-      "taste": "fruity",
-      "chardonay": 42,
-      "carmenere": 23,
-      "syrah": 82
-    },
-    {
-      "taste": "bitter",
-      "chardonay": 47,
-      "carmenere": 52,
-      "syrah": 78
-    },
-    {
-      "taste": "heavy",
-      "chardonay": 70,
-      "carmenere": 117,
-      "syrah": 63
-    },
-    {
-      "taste": "strong",
-      "chardonay": 102,
-      "carmenere": 20,
-      "syrah": 79
-    },
-    {
-      "taste": "sunny",
-      "chardonay": 35,
-      "carmenere": 66,
-      "syrah": 22
+  const [rating, setRating] = useState<nivoDiagramm>();
+  useEffect(() => {
+    const FD = async () => {
+      const response = await getTopRating(3);
+      setRating(response.data);
     }
-  ]
-
-
-
+    FD()
+  }, [])
 
   return (
     <div className={styles.container}>
-      <Link to={"/Profile"}>Profile </Link>
+
+{/*
+      {rating && rating.data.map(elem => <div>{elem.country}
+        <p>
+          Сумма значений:{" "}
+          {Object.entries(elem)
+            .filter(([key]) => key !== "country") // Исключаем ключ "country"
+            .reduce((sum, [, value]) => sum + Number(value), 0)} 
+        </p>
+      </div>
+      )}
+            */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+
+              <h1>
+                Наши лучшие студенты
+              </h1>
+        {rating &&
+          rating.data
+          
+            .map((elem, index) => {
+              var totalSum = Object.entries(elem)
+              .filter(([key]) => key !== "country" && key !== "studentid") // Исключаем ключ "country"
+              .reduce((sum, [, value]) => sum + Number(value), 0);
+
+              return (
+                <Link to={`/profile/${elem.studentid}`}
+                  key={elem.country}
+                  className={styles.link}
+                  
+                >
+                  <h2 style={{ margin: 0, color: index === 0 ? "#ff9800" : "#333" }}>
+                    #{index + 1} {elem.country}
+                  </h2>
+                  <p style={{ margin: "5px 0", fontSize: "14px", color: "#555" }}>
+                    Сумма значений: <strong>{totalSum}</strong>
+                  </p>
+                </Link>
+              );
+            })}
+      </div>
+      <Button startIcon={<BarChart />} variant="contained" size="medium" onClick={() => { navigate("/rating") }} sx={{margin:"20px 40px"}}>
+        Перейти к рейтингу
+      </Button>
+
+
+
+
       {/* Upload PDF */}
       <form>
         <label><h5>Upload PDF</h5></label>
@@ -105,47 +128,14 @@ export const HomePage: FC = () => {
         {!pdfFile && <>No file is selected yet</>}
         <FileUpload />
         <FileDownload />
-        <StudentList />
         <GenderComponent />
-        <AuthComponent />
         <FilesList />
         <div>
-          <RadarChart />
-          <ResponsiveRadar
-            data={[
-              {
-                "taste": "fruity",
-                "chardonay": 50,
-                "carmenere": 64,
-                "syrah": 31
-              },
-              {
-                "taste": "bitter",
-                "chardonay": 39,
-                "carmenere": 87,
-                "syrah": 38
-              },
-              {
-                "taste": "heavy",
-                "chardonay": 90,
-                "carmenere": 116,
-                "syrah": 58
-              },
-              {
-                "taste": "strong",
-                "chardonay": 23,
-                "carmenere": 101,
-                "syrah": 79
-              },
-              {
-                "taste": "sunny",
-                "chardonay": 95,
-                "carmenere": 60,
-                "syrah": 45
-              }
-            ]}
-            keys={['chardonay', 'carmenere', 'syrah']}
-            indexBy="taste"
+
+          {rating&&<div style={{width:"100%",height:"400px"}}><ResponsiveRadar
+            data={rating?.data}
+            keys={rating?.keys}
+            indexBy="country"
             valueFormat=">-.2f"
             margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
             borderColor={{ from: 'color' }}
@@ -177,94 +167,10 @@ export const HomePage: FC = () => {
                 ]
               }
             ]}
-          />
+          /></div>}
 
         </div>
       </div>
     </div>
   )
 }
-
-import React from 'react';
-
-const RadarChart = () => {
-  // Данные для диаграммы
-  const data = [
-    {
-      taste: 'fruity',
-      chardonay: 50,
-      carmenere: 64,
-      syrah: 31,
-    },
-    {
-      taste: 'bitter',
-      chardonay: 39,
-      carmenere: 87,
-      syrah: 38,
-    },
-    {
-      taste: 'heavy',
-      chardonay: 90,
-      carmenere: 116,
-      syrah: 58,
-    },
-    {
-      taste: 'strong',
-      chardonay: 23,
-      carmenere: 101,
-      syrah: 79,
-    },
-    {
-      taste: 'sunny',
-      chardonay: 95,
-      carmenere: 60,
-      syrah: 45,
-    },
-  ];
-
-  // Ключи для отображения данных
-  const keys = ['chardonay', 'carmenere', 'syrah'];
-
-  return (
-    <div style={{ width: '100%', height: '400px' }}>
-      <ResponsiveRadar
-        data={data} // Данные для диаграммы
-        keys={keys} // Ключи для отображения данных
-        indexBy="taste" // Поле, используемое как индекс (метки осей)
-        valueFormat=">-.2f" // Формат отображения значений
-        margin={{ top: 70, right: 80, bottom: 40, left: 80 }} // Отступы
-        borderColor={{ from: 'color' }} // Цвет границ
-        gridLabelOffset={36} // Смещение меток сетки
-        dotSize={10} // Размер точек
-        dotColor={{ theme: 'background' }} // Цвет точек
-        dotBorderWidth={2} // Ширина границ точек
-        colors={{ scheme: 'nivo' }} // Цветовая схема
-        blendMode="multiply" // Режим наложения цветов
-        motionConfig="wobbly" // Анимация
-        legends={[
-          {
-            anchor: 'top-left', // Расположение легенды
-            direction: 'column', // Направление элементов легенды
-            translateX: -50, // Смещение по X
-            translateY: -40, // Смещение по Y
-            itemWidth: 80, // Ширина элемента легенды
-            itemHeight: 20, // Высота элемента легенды
-            itemTextColor: '#999', // Цвет текста легенды
-            symbolSize: 12, // Размер символа легенды
-            symbolShape: 'circle', // Форма символа
-            effects: [
-              {
-                on: 'hover', // Эффект при наведении
-                style: {
-                  itemTextColor: '#000', // Изменение цвета текста
-                },
-              },
-            ],
-          },
-        ]}
-      />
-    </div>
-  );
-};
-
-export default RadarChart;
