@@ -54,7 +54,7 @@ export const RatingPage = () => {
   };
 
   return (
-    <div className={styles.page} style={{ width: '100%', height: '300px' }}>
+    <div className={styles.page} style={{ width: '100%' }}>
       {rating &&
         <>
           <ResponsiveBar
