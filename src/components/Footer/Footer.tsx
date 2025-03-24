@@ -36,7 +36,6 @@ export const Footer: React.FC = () => {
           <ul>
             <li><a href="/about">О нас</a></li>
             <li><a href="/news">Новости</a></li>
-            <li><a href="/events">Мероприятия</a></li>
             <li><a href="/support">Поддержка</a></li>
           </ul>
         </div>

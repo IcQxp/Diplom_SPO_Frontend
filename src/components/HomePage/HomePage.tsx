@@ -106,7 +106,7 @@ const [loading,setLoading] = useState<boolean>(true);
                     #{index + 1} {elem.country}
                   </h2>
                   <p style={{ margin: "5px 0", fontSize: "14px", color: "#555" }}>
-                    Сумма значений: <strong>{totalSum}</strong>
+                    Общее кол-во баллов: <strong>{totalSum}</strong>
                   </p>
                 </Link>
               );
@@ -119,27 +119,22 @@ const [loading,setLoading] = useState<boolean>(true);
 
 <News/>
 
-
-      {/* Upload PDF */}
+{/* 
       <form>
         <label><h5>Upload PDF</h5></label>
         <br></br>
         <input type='file' className="form-control"
           onChange={handleFile}></input>
-        {/* we will display error message in case user select some file
-        other than pdf */}
+        
         {pdfError && <span className='text-danger'>{pdfError}</span>}
       </form>
-      {/* View PDF */}
       <h5>View PDF</h5>
       <div className="viewer">
-        {/* render this if we have a pdf file */}
         {pdfFile && (<Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
           <Viewer fileUrl={pdfFile}
             plugins={[defaultLayoutPluginInstance]}></Viewer>
         </Worker>
         )}
-        {/* render this if we have pdfFile state null   */}
         {!pdfFile && <>No file is selected yet</>}
         <FileUpload />
         <FileDownload />
@@ -184,8 +179,8 @@ const [loading,setLoading] = useState<boolean>(true);
             ]}
           /></div>}
 
-        </div>
-      </div>
+        </div> 
+      </div> */}
     </div>
   )
 }
