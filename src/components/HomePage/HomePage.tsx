@@ -16,6 +16,7 @@ import styles from "./HomePage.module.scss"
 import { ResponsiveRadar } from '@nivo/radar'
 import { BarChart } from "@mui/icons-material"
 import { Loading } from "../Loading/Loading";
+import { News } from "../News/News";
 
 
 export const HomePage: FC = () => {
@@ -81,9 +82,9 @@ const [loading,setLoading] = useState<boolean>(true);
             */}
             <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
 
-              <h1>
+              <h2 className={styles.top__title}>
                 Наши лучшие студенты
-              </h1>
+              </h2>
         {loading? (
           <Loading size={20} type="rating-3"/>
         ):
@@ -116,6 +117,7 @@ const [loading,setLoading] = useState<boolean>(true);
         Перейти к рейтингу
       </Button>
 
+<News/>
 
 
       {/* Upload PDF */}
