@@ -15,12 +15,14 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.scss"
 import { ResponsiveRadar } from '@nivo/radar'
 import { BarChart } from "@mui/icons-material"
+import { Loading } from "../Loading/Loading";
 
 
 export const HomePage: FC = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const [pdfFile, setPdfFile] = useState<string | null>(null);
   const [pdfError, setPdfError] = useState<string>('');
+const [loading,setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const allowedFiles = ['application/pdf'];
@@ -49,9 +51,17 @@ export const HomePage: FC = () => {
   const [rating, setRating] = useState<nivoDiagramm>();
   useEffect(() => {
     const FD = async () => {
+    try {
       const response = await getTopRating(3);
       setRating(response.data);
+  }
+    catch (error) {
+      console.warn("Ошибка при получении данных:", error);
     }
+    finally  {
+      setLoading(false);
+    }
+  }
     FD()
   }, [])
 
@@ -74,7 +84,10 @@ export const HomePage: FC = () => {
               <h1>
                 Наши лучшие студенты
               </h1>
-        {rating &&
+        {loading? (
+          <Loading size={20} type="rating-3"/>
+        ):
+        rating ? (
           rating.data
           
             .map((elem, index) => {
@@ -96,12 +109,12 @@ export const HomePage: FC = () => {
                   </p>
                 </Link>
               );
-            })}
+            })
+          ):(<div>ПУСТО</div>)}
       </div>
       <Button startIcon={<BarChart />} variant="contained" size="medium" onClick={() => { navigate("/rating") }} sx={{margin:"20px 40px"}}>
         Перейти к рейтингу
       </Button>
-
 
 
 
@@ -132,7 +145,7 @@ export const HomePage: FC = () => {
         <FilesList />
         <div>
 
-          {rating&&<div style={{width:"100%",height:"400px"}}><ResponsiveRadar
+          {rating&&<div style={{width:"100%",height:"400px"}}><ResponsiveRadar 
             data={rating?.data}
             keys={rating?.keys}
             indexBy="country"

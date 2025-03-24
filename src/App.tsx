@@ -12,6 +12,7 @@ import { getMe } from './api/api-utils';
 import { setUser } from './store/userSlice';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { RatingPage } from './pages/Ratings/RatingPage/RatingPage';
+import { ReportComp } from './pages/ReportComp/ReportComp';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function App() {
           dispatch(setUser(response.data.user));
         } catch (error) {
           console.error('Error loading user:', error);
-          localStorage.removeItem('token'); // Удаляем токен, если произошла ошибка
+          localStorage.removeItem('token');
         }
       }
       setLoading(false);
@@ -36,7 +37,7 @@ function App() {
   }, [dispatch, token]);
 
   if (loading) {
-    return <div>Loading...</div>; // Компонент загрузки
+    return <div>Loading...</div>;
   }
 
   return (
@@ -45,20 +46,21 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/Home" />} />
           <Route path="Home" element={<HomePage />} />
-          <Route path="Rating" element={<RatingPage />} />
-          <Route path="Auth" element={<AuthComponent />} />
-
-          {/* Защищенные маршруты */}
           <Route element={<PrivateRoute />}>
-            <Route path="Admin">
-              <Route path="Documents" element={<FilesList />} />
-              <Route path="Document/:id" element={<DocumentPage />} />
+            <Route path="Admin" />
+          </Route>
+          <Route path="Auth" element={<AuthComponent />} />
+          <Route path="Profile/:username" element={<Profile />} >
+            <Route path="Docs" element={<Profile />} />
+            <Route path="Doc/:id" element={<Profile />} />
+          </Route>
+          <Route path="Rating" element={<RatingPage />} >
+            <Route element={<PrivateRoute />}>
+              <Route path="Docs" element={<FilesList />} />
+              <Route path="Doc/:id" element={<DocumentPage />} />
+              <Route path="Report" element={<ReportComp />} />
             </Route>
           </Route>
-            <Route path="Profile/:username" element={<Profile />} />
-            {/* <Route path="Profile" element={<Profile />} /> */}
-
-          {/* Страница 404 */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

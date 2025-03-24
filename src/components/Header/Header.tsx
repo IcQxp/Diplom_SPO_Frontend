@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 import { RootState } from '../../store/store';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserResponse } from '../../pages/auth/auth';
 import { Button } from '@mui/material';
 
@@ -43,10 +43,10 @@ export const Header: React.FC = () => {
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <div style={{ display: "flex", flexDirection: "row", gap: "12px", alignItems: "center" }}>
+      <Link to={"/home"} style={{ display: "flex", flexDirection: "row", gap: "12px", alignItems: "center",textDecoration:"none" }}>
         <img src='/icons/socials/logo2.svg' alt='Logo' style={{ maxHeight: "40px" }} />
         <div className={styles.logo}>MyUniversity</div>
-      </div>
+      </Link>
       <div className={styles.userInfo}>
         {!user ?
 
