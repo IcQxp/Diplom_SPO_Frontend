@@ -60,7 +60,7 @@ export const RatingPage = () => {
           <ResponsiveBar
             data={rating.data}
             keys={selectedKeys}
-            indexBy="country"
+            indexBy="student"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
             colors={{ scheme: 'blues' }}
@@ -68,7 +68,7 @@ export const RatingPage = () => {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: 'country',
+              legend: 'student',
               legendPosition: 'middle',
               legendOffset: 32
             }}

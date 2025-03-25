@@ -3,6 +3,9 @@
 	border-spacing: 0;
 	width: 100%;
 	overflow: hidden;
+	&__container {
+		overflow-x: scroll;
+	}
 }
 .table th, .table td {
 	border: 1px solid #888;

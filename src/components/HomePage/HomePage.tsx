@@ -1,59 +1,74 @@
 
-import { nivoDiagramm } from "../Ratings/RatingWithArray";
-import { getTopRating } from "../../api/api-utils";
+import { getAllCritea, getTopRatingWithCriteriaArray } from "../../api/api-utils";
 import { Button } from "@mui/material";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import React, { FC, useEffect, useState } from "react"
-import FileUpload from "../FileUpload/FileUpload";
-import FileDownload from "../FileDownload/FileDownload";
-import { GenderComponent } from "../Gender/Gender";
+// import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import { FC, useEffect, useState } from "react"
+// import { Viewer, Worker } from "@react-pdf-viewer/core";
+// import FileUpload from "../FileUpload/FileUpload";
+// import FileDownload from "../FileDownload/FileDownload";
+// import { GenderComponent } from "../Gender/Gender";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-import { FilesList } from "../FilesList/FilesList";
+// import { FilesList } from "../FilesList/FilesList";
+// import { ResponsiveRadar } from '@nivo/radar'
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.scss"
-import { ResponsiveRadar } from '@nivo/radar'
 import { BarChart } from "@mui/icons-material"
 import { Loading } from "../Loading/Loading";
 import { News } from "../News/News";
+import { Criterion } from "../../models";
 
+
+interface DataItem {
+  criteria: string; // Название критерия
+  [key: string]: number | string; // Динамические ключи (имена студентов) с числовыми значениями
+}
+
+// Интерфейс для всего ответа
+export interface ChartResponse {
+  keys: Array<{ [key: string]: string }>; // Массив объектов с ключами-идентификаторами пользователей
+  data: DataItem[]; // Массив объектов с данными
+}
 
 export const HomePage: FC = () => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  const [pdfFile, setPdfFile] = useState<string | null>(null);
-  const [pdfError, setPdfError] = useState<string>('');
+  // const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  // const [pdfFile, setPdfFile] = useState<string | null>(null);
+  // const [pdfError, setPdfError] = useState<string>('');
 const [loading,setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
-  const allowedFiles = ['application/pdf'];
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let selectedFile = e.target.files?.[0];
-    // console.log(selectedFile.type);
-    if (selectedFile) {
-      if (selectedFile && allowedFiles.includes(selectedFile.type)) {
-        let reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = (e) => {
-          setPdfError('');
-          setPdfFile(e.target?.result as string | null);
-        }
-      }
-      else {
-        setPdfError('Not a valid pdf: Please select only PDF');
-        setPdfFile('');
-      }
-    }
-    else {
-      console.log('please select a PDF');
-    }
-  }
+  // const allowedFiles = ['application/pdf'];
+  // const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   let selectedFile = e.target.files?.[0];
+  //   // console.log(selectedFile.type);
+  //   if (selectedFile) {
+  //     if (selectedFile && allowedFiles.includes(selectedFile.type)) {
+  //       let reader = new FileReader();
+  //       reader.readAsDataURL(selectedFile);
+  //       reader.onloadend = (e) => {
+  //         setPdfError('');
+  //         setPdfFile(e.target?.result as string | null);
+  //       }
+  //     }
+  //     else {
+  //       setPdfError('Not a valid pdf: Please select only PDF');
+  //       setPdfFile('');
+  //     }
+  //   }
+  //   else {
+  //     console.log('please select a PDF');
+  //   }
+  // }
 
-  const [rating, setRating] = useState<nivoDiagramm>();
+  const [rating, setRating] = useState<ChartResponse>();
+
+
   useEffect(() => {
     const FD = async () => {
     try {
-      const response = await getTopRating(3);
+      const criteriaResponse:Criterion[] = (await getAllCritea()).data;
+      const response = await getTopRatingWithCriteriaArray({count:3,criteriaIDs:criteriaResponse.map(item => item.criteriaId)});
+      console.log(response);
       setRating(response.data);
   }
     catch (error) {
@@ -65,6 +80,32 @@ const [loading,setLoading] = useState<boolean>(true);
   }
     FD()
   }, [])
+
+  const calculateRatings = () => {
+    if (!rating) return [];
+
+    const studentRatings: { name: string; totalScore: number }[] = [];
+
+    // Извлечение имён студентов из keys
+    const studentNames = Object.values(rating.keys).map((keyObj) => Object.values(keyObj)[0]);
+
+    // Расчёт суммы баллов для каждого студента
+    studentNames.forEach((studentName) => {
+      const totalScore = rating.data.reduce((sum, dataItem) => {
+        const score = dataItem[studentName];
+        return sum + (typeof score === "number" ? score : 0);
+      }, 0);
+
+      studentRatings.push({ name: studentName, totalScore });
+    });
+
+    // Сортировка студентов по убыванию рейтинга
+    return studentRatings.sort((a, b) => b.totalScore - a.totalScore);
+  };
+
+  const sortedStudents = calculateRatings();
+
+
 
   return (
     <div className={styles.container}>
@@ -85,7 +126,7 @@ const [loading,setLoading] = useState<boolean>(true);
               <h2 className={styles.top__title}>
                 Наши лучшие студенты
               </h2>
-        {loading? (
+        {/* {loading? (
           <Loading size={20} type="rating-3"/>
         ):
         rating ? (
@@ -98,12 +139,12 @@ const [loading,setLoading] = useState<boolean>(true);
 
               return (
                 <Link to={`/profile/${elem.studentid}`}
-                  key={elem.country}
+                  key={elem.criteria}
                   className={styles.link}
                   
                 >
                   <h2 style={{ margin: 0, color: index === 0 ? "#ff9800" : "#333" }}>
-                    #{index + 1} {elem.country}
+                    #{index + 1} {elem.criteria}
                   </h2>
                   <p style={{ margin: "5px 0", fontSize: "14px", color: "#555" }}>
                     Общее кол-во баллов: <strong>{totalSum}</strong>
@@ -111,7 +152,23 @@ const [loading,setLoading] = useState<boolean>(true);
                 </Link>
               );
             })
-          ):(<div>ПУСТО</div>)}
+          ):(<div>ПУСТО</div>)} */}
+          {loading ? (
+          <Loading size={20} type="rating-3" />
+        ) : sortedStudents.length > 0 ? (
+          sortedStudents.map(({ name, totalScore }, index) => (
+            <Link to={`/profile/${index + 1}`} key={name} className={styles.link}>
+              <h2 style={{ margin: 0, color: index === 0 ? "#ff9800" : "#333" }}>
+                #{index + 1} {name}
+              </h2>
+              <p style={{ margin: "5px 0", fontSize: "14px", color: "#555" }}>
+                Общее кол-во баллов: <strong>{totalScore}</strong>
+              </p>
+            </Link>
+          ))
+        ) : (
+          <div>ПУСТО</div>
+        )}
       </div>
       <Button startIcon={<BarChart />} variant="contained" size="medium" onClick={() => { navigate("/rating") }} sx={{margin:"20px 40px"}}>
         Перейти к рейтингу

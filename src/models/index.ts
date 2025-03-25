@@ -5,8 +5,9 @@ export interface User {
     patronymic: string;
     login: string;
     password: string;
-    birthDate: Date; // или Date, в зависимости от формата
+    birthDate: Date;
 }
+
 // export interface Student extends User {
 //     studentId: number;
 //     groupId: number;
@@ -25,32 +26,6 @@ export interface User {
 //     lessons?: Lesson[]; // Определите интерфейс Lesson
 //     role?: Role; // Определите интерфейс Role
 // }
-
-export interface Grade {
-    // Определите поля, если необходимо
-}
-
-export interface Group {
-    // Определите поля, если необходимо
-}
-
-export interface Gender {
-    // Определите поля, если необходимо
-}
-
-export interface User {
-
-}
-
-export interface Lesson {
-
-}
-
-
-
-export interface Role {
-
-}
 
 
 // interface Criteria {
@@ -81,8 +56,6 @@ export interface Role {
 // }
 
 
-
-// interfaces.ts
 import {
     Id,
     Name,
@@ -124,7 +97,7 @@ export interface Document {
     statusId: Id;
     employeeId?: Id;
     filePath: FilePath;
-    downloadDate: DateString; // Можно использовать Date
+    downloadDate: DateString; 
     documentTypeId?: Id;
     criteriaId?: Id;
     score?: Score;
@@ -138,7 +111,7 @@ export interface DocumentType {
     documentTypeId: Id;
     name: Name;
     description: Description;
-    documents?: Document[]; // Если нужно
+    documents?: Document[]; 
 }
 
 export interface Employee {
@@ -147,15 +120,15 @@ export interface Employee {
     lastname: Name;
     firstname: Name;
     patronymic: Name;
-    birthDate: BirthDate; // Можно использовать Date
+    birthDate: BirthDate; 
     login: Name;
     password: Password;
     email: Email;
     telephone: Telephone;
     roleId: Id;
-    documents?: Document[]; // Если нужно
+    documents?: Document[]; 
     genderCodeNavigation?: Gender;
-    lessons?: Lesson[]; // Если нужно
+    lessons?: Lesson[]; 
     role?: Role;
 }
 
@@ -187,7 +160,7 @@ export interface Lesson {
     disciplineId: Id;
     groupId: Id;
     lessonTimeId: Id;
-    lessonDate: LessonDate; // Можно использовать Date
+    lessonDate: LessonDate;
     employeeId: Id;
     discipline?: Discipline;
     employee?: Employee;
@@ -198,8 +171,8 @@ export interface Lesson {
 
 export interface LessonTime {
     lessonTimeId: Id;
-    startTime: StartTime; // Можно использовать Time
-    endTime: EndTime; // Можно использовать Time
+    startTime: StartTime; 
+    endTime: EndTime; 
     lessons?: Lesson[];
 }
 
@@ -224,7 +197,7 @@ export interface Student {
     groupId: Id;
     login: Name;
     password: Password;
-    birthDate: BirthDate; // Можно использовать Date
+    birthDate: BirthDate; 
     genderCodeNavigation?: Gender;
     grades?: Grade[];
     group?: Group;

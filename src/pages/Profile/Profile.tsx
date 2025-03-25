@@ -1,124 +1,140 @@
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./Profile.module.scss";
-import { UserResponse } from "../auth/auth";
 import { DocumentsTable } from "../../components/MyDocuments/DocumentsTable";
 import { ResponsiveRadar } from "@nivo/radar";
-import { getAllCritea, getUserByID, getUserRating } from "../../api/api-utils";
+import { getPostUserRating, getUserByID} from "../../api/api-utils";
 import { Student } from "../../models";
+import { nivoDiagramm } from "../../components/Ratings/RatingWithArray";
+import { Button } from "@mui/material";
 
 export const Profile = () => {
-
   const { username } = useParams<{ username: string }>();
   const [userData, setUserData] = useState<Student | null>(null);
-
-
-  console.log("userlogin: " + username)
-  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.userInfo);
-  const [currentUser, setCurrentUser] = useState<UserResponse>();
-  const [userRating, setUserRating] = useState();
-  const [criteriaKeys, setCriteriaKeys] = useState<string[]>();
-  const [Loading, setLoading] = useState<boolean>(true);
+  const [userRating, setUserRating] = useState<nivoDiagramm>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const GetRating = async () => {
-      
-      if (username == undefined || username.trim() == "") {
+    const fetchUserData = async () => {
+      if (!username || username.trim() === "") {
         setLoading(false);
         return;
       }
-      if (!isNaN(Number(username))) {
-        try {
-          const rating = await getUserRating(Number(username));
-          const fetchedUserData = await getUserByID(username);
-          // const categories = await getAllCritea();
-          setUserData(fetchedUserData.data);
-          setCriteriaKeys([rating.data.userName])
-          setUserRating(rating.data.ratings);
-          setLoading(false);
-        }
-        catch (ex) {
-          console.error("Ошибка при получении рейтинга пользователя:", ex);
-        } finally {
-          setLoading(false);
-        }
-      } else {
+
+      try {
+        // Получаем данные пользователя по его ID или имени пользователя
+        const fetchedUserData = await getUserByID(username);
+        const rating = (await getPostUserRating([Number(fetchedUserData.data.studentId)])).data;
+        setUserData(fetchedUserData.data);
+        setUserRating(rating);
+        // setCriteriaKeys(Object.keys(rating.data.ratings[0] || {}));
+      } catch (error) {
+        console.error("Ошибка при получении данных пользователя:", error);
+      } finally {
         setLoading(false);
       }
-    }
-    GetRating();
-  }, [username])
+    };
 
+    fetchUserData();
+  }, [username]);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //       try {
-  //         const fetchedUserData = await getUserByID(username);
-  //         setUserData(fetchedUserData);
-  //       } catch (error) {
-  //         console.error("Ошибка при загрузке данных пользователя:", error);
-  //       }
-     
-  //   };
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingText}>Loading...</div>
+      </div>
+    );
+  }
 
-  //   fetchUserData();
-  // }, [username, user]);
-
-
-  // useEffect(() => {
-  //   if (user) {
-  //     setCurrentUser(user);
-  //   } 
-  // }, [user]);
-
-  // 
-
-
+  if (!userData) {
+    return (
+      <div className={styles.errorContainer}>
+        <div className={styles.errorText}>User not found</div>
+      </div>
+    );
+  }
   return (
-    <main className={styles.page}>
-      {Loading && <>Loading</>}
-      {userRating == null && <>NotFound</>}
-      {!Loading && userData?.studentId &&
-        <div>
-          {user?.id==userData?.studentId&&
-          <DocumentsTable id={userData.studentId} />
-          }
+    <main className={styles.mainContainer}>
+      {/* Личная информация студента */}
+      <section className={styles.section}>
+        <h1 className={styles.personalInfoTitle}>{userData.lastname} {userData.firstname} {userData.patronymic}</h1>
+        <div className={styles.grid}>
+          <div>
+            <p className={styles.personalInfoText}>
+              <strong>Дата рождения:</strong> {userData.birthDate}
+            </p>
+            <p className={styles.personalInfoText}>
+              <strong>Пол:</strong> {userData.genderCode.toLowerCase() === "м" ? "Мужской" : "Женский"}
+            </p>
+          </div>
+          <div>
+            <p className={styles.personalInfoText}>
+              <strong>Группа:</strong> {userData.group?.groupNumber || "Не указана"}
+            </p>
+          </div>
+        </div>
+      </section>
 
-          <div style={{ width: '100%', height: '400px' }}>
+      {/* Таблица документов (если пользователь просматривает свой профиль) */}
+      {user?.id === userData.studentId && (
+        <section className={styles.section}>
+          <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"20px"}}>
+
+          <h2 className={styles.documentsSectionTitle}>Мои документы</h2>
+          <Button size="medium" variant="contained">Добавить</Button>
+          </div>
+          <DocumentsTable id={userData.studentId} />
+        </section>
+      )}
+
+      {/* Рейтинг студента */}
+      {userRating && (
+        <section className={styles.section}>
+          <h2 className={styles.ratingSectionTitle}>Статистика</h2>
+          <h3>Всего баллов: 
+            
+          {userRating.data
+            .flatMap(elem => Object.values(elem))
+            .filter(value => typeof value === 'number')
+            .reduce((acc, curr) => acc + curr, 0)}
+           
+            </h3> 
+          <div className={styles.ratingChartContainer}>
+            
             <ResponsiveRadar
-              data={userRating || []} // Данные для диаграммы
-              keys={criteriaKeys && criteriaKeys || []} // Ключи для отображения данных
-              // keys = {[]} //Фамилии например, объекты с характеристиками
-              indexBy="criteria" // Поле, используемое как индекс (метки осей)
-              valueFormat=">-.2f" // Формат отображения значений
-              margin={{ top: 70, right: 80, bottom: 40, left: 80 }} // Отступы
-              borderColor={{ from: 'color' }} // Цвет границ
-              gridLabelOffset={36} // Смещение меток сетки
-              dotSize={10} // Размер точек
-              dotColor={{ theme: 'background' }} // Цвет точек
-              dotBorderWidth={2} // Ширина границ точек
-              colors={{ scheme: 'nivo' }} // Цветовая схема
-              blendMode="multiply" // Режим наложения цветов
-              motionConfig="wobbly" // Анимация
+              data={userRating?.data || []}
+                           keys={userRating?.keys || []}
+              indexBy="criteria"
+              maxValue="auto"
+              margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
+              borderColor={{ from: "color" }}
+              gridLabelOffset={36}
+              dotSize={10}
+              dotColor={{ theme: "background" }}
+              dotBorderWidth={2}
+              colors={{ scheme: "category10" }}
+              blendMode="multiply"
+              motionConfig="wobbly"
               legends={[
                 {
-                  anchor: 'top-left', // Расположение легенды
-                  direction: 'column', // Направление элементов легенды
-                  translateX: -50, // Смещение по X
-                  translateY: -40, // Смещение по Y
-                  itemWidth: 80, // Ширина элемента легенды
-                  itemHeight: 20, // Высота элемента легенды
-                  itemTextColor: '#999', // Цвет текста легенды
-                  symbolSize: 12, // Размер символа легенды
-                  symbolShape: 'circle', // Форма символа
+                  anchor: "top-left",
+                  direction: "column",
+                  translateX: -50,
+                  translateY: -40,
+                  itemWidth: 80,
+                  itemHeight: 20,
+                  itemTextColor: "#999",
+                  symbolSize: 12,
+                  symbolShape: "circle",
                   effects: [
                     {
-                      on: 'hover', // Эффект при наведении
+                      on: "hover",
                       style: {
-                        itemTextColor: '#000', // Изменение цвета текста
+                        itemTextColor: "#000",
                       },
                     },
                   ],
@@ -126,7 +142,8 @@ export const Profile = () => {
               ]}
             />
           </div>
-        </div> }
+        </section>
+      )}
     </main>
   );
 };

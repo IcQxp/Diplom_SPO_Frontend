@@ -12,5 +12,6 @@ export const endpoints= {
     getUserByID:  (userID:string) =>  `${BASE_API}/api/students/${userID}`,
     getTopRating: (count:number,criteriaId?:string) => `${BASE_API}/api/rating/top-students?count=${count}&criteriaId=${criteriaId&&criteriaId}`,
     getTopRatingWithCriteriaArray: `${BASE_API}/api/rating/top-students-array`,
+    getUsersRating: `${BASE_API}/api/rating/GetUsersRatings`
 
 }

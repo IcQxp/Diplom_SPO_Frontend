@@ -1,6 +1,5 @@
 import styles from "./News.module.scss";
 
-// Пример данных новостей (можно заменить на данные из API)
 const newsData = [
   {
     id: 1,

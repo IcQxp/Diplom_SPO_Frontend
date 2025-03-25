@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const [Loading, setLoading] = useState<boolean>(true);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Отслеживание скролла

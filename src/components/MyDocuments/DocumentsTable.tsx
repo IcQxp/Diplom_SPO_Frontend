@@ -64,7 +64,7 @@ export const DocumentsTable: FC<DocumentsTableProps> = ({ id }) => {
 }
 
   return (
-    <>{id}
+    <div className={styles.table__container}>
     <table className={styles.table}>
       <thead>
         <tr>
@@ -114,7 +114,7 @@ ID
       </tbody>
     </table>
     {isPopupOpen && (
-        <div className={styles.popupOverlay}>
+      <div className={styles.popupOverlay}>
           <div className={styles.popupContent}>
             <h2>Редактировать документ</h2>
             <form onSubmit={handleSave}>
@@ -140,6 +140,6 @@ ID
           </div>
         </div>
       )}
-    </>
+  </div>
   )
 }

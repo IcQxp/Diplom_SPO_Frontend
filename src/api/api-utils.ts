@@ -58,6 +58,9 @@ const getAllDocuments = (token: string) =>
 const getUserRating = (userID: number) =>
   axiosRequest("get", endpoints.getUserRating(userID));
 
+const getPostUserRating = (data:number[]) =>
+  axiosRequest("post", endpoints.getUsersRating,"",data);
+
 const getAllCritea = () =>
   axiosRequest("get", endpoints.getAllCritea);
 
@@ -85,4 +88,5 @@ export {
   getUserByID,
   getTopRating,
   getTopRatingWithCriteriaArray,
+  getPostUserRating,
 }
