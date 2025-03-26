@@ -202,3 +202,34 @@ export interface Student {
     grades?: Grade[];
     group?: Group;
 }
+
+export function convert(input: any): any {
+    const { keys, data } = input;
+
+    // 1. Создаем массив ключей (критериев)
+    const criteriaKeys = data.map((item: any) => item.criteria);
+
+    // 2. Преобразуем данные для каждого студента
+    const transformedData = keys.map((studentKey: string) => {
+        const studentData: any = {
+            criteria: studentKey // Ключ - это имя студента
+        };
+
+        // Для каждого критерия добавляем значение для текущего студента
+        data.forEach((criteriaItem: any) => {
+            const criterion = criteriaItem.criteria;
+            const value = criteriaItem[studentKey];
+            studentData[criterion] = value;
+        });
+
+        return studentData;
+    });
+
+    // 3. Формируем итоговый объект
+    const result = {
+        keys: criteriaKeys,
+        data: transformedData
+    };
+
+    return result;
+}

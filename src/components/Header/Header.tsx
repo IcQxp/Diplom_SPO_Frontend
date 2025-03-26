@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
 
           <Button loading={Loading}  onClick={() => navigate('/auth')} variant='contained'>Войти</Button>
           : <>
-            <p>Вы: {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'}</p>
+            <p>Вы: <Link to={`/profile/${user.id}`} style={{textDecoration:"none",color:"#000"}}> {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'} </Link></p>
             <Button onClick={() => console.log('Logout')} size='medium' variant="contained" sx={{ backgroundColor: "#e53935" }}>
               Выйти
             </Button>

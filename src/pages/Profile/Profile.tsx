@@ -9,7 +9,8 @@ import { ResponsiveRadar } from "@nivo/radar";
 import { getPostUserRating, getUserByID} from "../../api/api-utils";
 import { Student } from "../../models";
 import { nivoDiagramm } from "../../components/Ratings/RatingWithArray";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import {FileUpload} from "../../components/FileUpload/FileUpload";
 
 export const Profile = () => {
   const { username } = useParams<{ username: string }>();
@@ -17,6 +18,8 @@ export const Profile = () => {
   const user = useSelector((state: RootState) => state.user.userInfo);
   const [userRating, setUserRating] = useState<nivoDiagramm>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); // Состояние для управления popup
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -85,11 +88,21 @@ export const Profile = () => {
           <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"20px"}}>
 
           <h2 className={styles.documentsSectionTitle}>Мои документы</h2>
-          <Button size="medium" variant="contained">Добавить</Button>
+          <Button size="medium" variant="contained" onClick={() => setIsPopupOpen(true)}>Добавить</Button>
           </div>
           <DocumentsTable id={userData.studentId} />
         </section>
       )}
+      {/* Popup для загрузки файла */}
+      <Dialog open={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
+        <DialogTitle>Загрузка документа</DialogTitle>
+        <DialogContent>
+          <FileUpload onClose={() => setIsPopupOpen(false)} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsPopupOpen(false)}>Отмена</Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Рейтинг студента */}
       {userRating && (
