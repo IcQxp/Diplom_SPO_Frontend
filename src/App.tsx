@@ -14,6 +14,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { RatingPage } from './pages/Ratings/RatingPage/RatingPage';
 import { ReportComp } from './pages/ReportComp/ReportComp';
 import PdfGenerator from './components/PdfGenerator/PdfGenerator';
+import { AdminPage } from './pages/AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ function App() {
           <Route path="Home" element={<HomePage />} />
           <Route path='PDF' element={<PdfGenerator/>}/>
           <Route element={<PrivateRoute />}>
-            <Route path="Admin" />
+            <Route path="Admin" element={<AdminPage/>} />
           </Route>
           <Route path="Auth" element={<AuthComponent />} />
           <Route path="Profile/:username" element={<Profile />} >
@@ -58,9 +59,9 @@ function App() {
           </Route>
           <Route path="Rating" element={<RatingPage />} >
             <Route element={<PrivateRoute />}>
+              <Route path="Report" element={<ReportComp /> } />
               <Route path="Docs" element={<FilesList />} />
               <Route path="Doc/:id" element={<DocumentPage />} />
-              <Route path="Report" element={<ReportComp />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFoundPage />} />

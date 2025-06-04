@@ -6,6 +6,8 @@ import { getTopRatingWithCriteriaArray, getAllCritea } from "../../../api/api-ut
 import { ResponsiveBar } from "@nivo/bar";
 import { convert } from "../../../models";
 import { ResponsiveRadar } from "@nivo/radar";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { LibraryBooks, ModeEdit } from "@mui/icons-material";
 
 interface Criterion {
   criteriaId: number;
@@ -18,6 +20,12 @@ interface RatingResponse {
 }
 
 export const RatingPage = () => {
+const location = useLocation();
+console.log(location)
+if (location.pathname.toLowerCase()!="/rating" && location.pathname.toLowerCase()!="/rating/")
+return  <Outlet/>;
+
+
   const [rating, setRating] = useState<RatingResponse | null>(null);
   const [ratingBar, setRatingBar] = useState<RatingResponse | null>(null);
   const [ratingRadar, setRatingRadar] = useState<RatingResponse | null>(null);
@@ -25,6 +33,7 @@ export const RatingPage = () => {
   const [selectedCriteriaIds, setSelectedCriteriaIds] = useState<number[]>([]); // Массив ID выбранных критериев
   const [studentCount, setStudentCount] = useState<number>(5);
 
+  const navigate = useNavigate();
   // Загрузка всех критериев при монтировании компонента
   useEffect(() => {
     const fetchCriteria = async () => {
@@ -165,10 +174,10 @@ export const RatingPage = () => {
           <Box
           
             sx={{
-              height: "400px", // Явно указываем высоту с единицей измерения
+              height: "700px", // Явно указываем высоту с единицей измерения
               width: { xs: "100%", sm: "50%" }, // Ширина зависит от размера экрана
               maxWidth: "100%", // Ограничение максимальной ширины
-              maxHeight: "500px",
+              maxHeight: "700px",
               position: "relative", // Обеспечиваем правильное позиционирование
               overflow: "hidden", // Скрываем всё, что выходит за пределы контейнера
             }}
@@ -178,7 +187,7 @@ export const RatingPage = () => {
               data={ratingRadar.data}
               keys={ratingRadar.keys}
               indexBy="criteria"
-              margin={{ top: 50, right: 80, bottom: 0, left: 100 }}
+              margin={{ top: 200, right: 80, bottom: 0, left: 100 }}
               colors={{ scheme: "accent" }}
               dotSize={8}
               dotColor={{ theme: "background" }}
@@ -327,6 +336,15 @@ export const RatingPage = () => {
           </Box>
         </Box>
       )}
+      {rating&& <Box sx={{marginTop:"30px",display:"flex",flexDirection:"row",gap:"15px"}}>
+      <Button startIcon={<ModeEdit/>} variant="contained" size="medium" onClick={()=>{navigate("/rating/report",{state:{ rating:rating}})}}>
+        Сформировать отчет
+      </Button>
+      <Button startIcon={<LibraryBooks/>}  variant="contained" size="medium" onClick={()=>{navigate("/rating/docs")}}>
+        Перейти к проверке документов
+      </Button>
+      </Box>
+      }
     </Box>
   );
 };

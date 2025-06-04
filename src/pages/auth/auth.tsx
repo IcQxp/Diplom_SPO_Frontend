@@ -3,7 +3,7 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import styles from "./auth.module.scss"
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store/userSlice';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
@@ -12,6 +12,7 @@ import Stack from '@mui/joy/Stack';
 import Key from '@mui/icons-material/Key';
 import { Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
+import { RootState } from '../../store/store';
 
 
 interface JwtPayloadNew extends JwtPayload {
@@ -41,6 +42,11 @@ const AuthComponent = () => {
   const [password, setPassword] = useState('');
   const [isEmployee, setIsEmployee] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  const user = useSelector((state: RootState) => state.user.userInfo);
+
+ if (user)
+  navigate("/Home");
 
   const handleLogin = async () => {
     try {

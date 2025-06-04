@@ -83,7 +83,7 @@ export const Profile = () => {
       </section>
 
       {/* Таблица документов (если пользователь просматривает свой профиль) */}
-      {user?.id === userData.studentId && (
+      {user?.id === userData.studentId && user.roleId==0 && (
         <section className={styles.section}>
           <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"20px"}}>
 

@@ -73,6 +73,27 @@ const getTopRating = (count: number, criteriaId?: string) =>
 const getTopRatingWithCriteriaArray = (data: RatingWithCriteria) =>
   axiosRequest("post", endpoints.getTopRatingWithCriteriaArray, "", data);
 
+const getAllDisciplines = () =>  axiosRequest("get",endpoints.getAllDisciplines);
+const getAllStudents = () =>  axiosRequest("get",endpoints.getAllStudents);
+const getAlldocumentTypes = () =>  axiosRequest("get",endpoints.getAllDocumentTypes);
+const getAllEmployees = () =>  axiosRequest("get",endpoints.getAllEmployees);
+const getAllGrades= () =>  axiosRequest("get",endpoints.getAllGrades);
+const getAllGroups = () =>  axiosRequest("get",endpoints.getAllGroups);
+const getAllLessons = () =>  axiosRequest("get",endpoints.getAllLessons);
+const getAllRoles = () =>  axiosRequest("get",endpoints.getAllRoles);
+const getAllStatuses = () =>  axiosRequest("get",endpoints.getAllStatuses);
+const getUserDocumentByID = (docId:number) => axiosRequest("get",endpoints.getUserDocumentByID(docId));
+const  updateDocumentStatus = (
+  documentId: number,
+  model: DocumentStatusUpdateModel) => axiosRequest("put",endpoints.updateDocumentStatus(documentId),"",model);
+export interface DocumentStatusUpdateModel {
+  StatusId: number; // ID нового статуса документа
+  CriteriaId?: number | null; // ID критерия (может быть null)
+  EmployeeId?: number | null; // ID сотрудника, выполняющего проверку (может быть null)
+  DocumentTypeId?: number | null; // ID типа документа (может быть null)
+  Score?: number | null; // Оценка документа (может быть null)
+}
+
 
 
 
@@ -89,4 +110,15 @@ export {
   getTopRating,
   getTopRatingWithCriteriaArray,
   getPostUserRating,
+  getAllDisciplines,
+  getAllStudents,
+  getAlldocumentTypes,
+  getAllEmployees,
+  getAllGrades,
+  getAllGroups,
+  getAllLessons,
+  getAllRoles ,
+  getAllStatuses,
+  getUserDocumentByID,
+  updateDocumentStatus,
 }

@@ -1,4 +1,6 @@
-export const BASE_API = "https://localhost:7003";
+// export const BASE_API = "https://localhost:7003";
+export const BASE_API = "https://loose-walls-wink.loca.lt";
+
 
 export const endpoints= {
     getUserDocuments: (id:number) => `${BASE_API}/api/documents/${id}`,
@@ -12,6 +14,18 @@ export const endpoints= {
     getUserByID:  (userID:string) =>  `${BASE_API}/api/students/${userID}`,
     getTopRating: (count:number,criteriaId?:string) => `${BASE_API}/api/rating/top-students?count=${count}&criteriaId=${criteriaId&&criteriaId}`,
     getTopRatingWithCriteriaArray: `${BASE_API}/api/rating/top-students-array`,
-    getUsersRating: `${BASE_API}/api/rating/GetUsersRatings`
+    getUsersRating: `${BASE_API}/api/rating/GetUsersRatings`,
+    getAllDisciplines: `${BASE_API}/api/admin/discipline/get-all-disciplines`,
+    getAllCriteria: `${BASE_API}/api/admin/get-all-criteria`,
+    getAllDocumentTypes: `${BASE_API}/api/admin/documentTypes/get-all-document-types`,
+    getAllEmployees: `${BASE_API}/api/admin/employee/get-all-employees`,
+    getAllGrades: `${BASE_API}/api/admin/grade/get-all-grades`,
+    getAllGroups: `${BASE_API}/api/admin/group/get-all-groups`,
+    getAllRoles: `${BASE_API}/api/admin/role`,
+    getAllStudents: `${BASE_API}/api/admin/students`,
+    getAllLessons: `${BASE_API}/api/admin/lesson/get-all-lessons`,
+    getAllStatuses: `${BASE_API}/api/documents/statuses`,
+    getUserDocumentByID: (id:number) => `${BASE_API}/api/documents/doc/${id}`,
+    updateDocumentStatus: (id:number) => `${BASE_API}/api/documents/update-status/${id}`,
 
 }

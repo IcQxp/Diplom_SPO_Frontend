@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 import { RootState } from '../../store/store';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserResponse } from '../../pages/auth/auth';
 import { Button } from '@mui/material';
+import { clearUser } from '../../store/userSlice';
 
 export const Header: React.FC = () => {
   const user: UserResponse | null = useSelector((state: RootState) => state.user.userInfo);
@@ -14,6 +15,7 @@ export const Header: React.FC = () => {
   const [Loading, setLoading] = useState<boolean>(true);
   // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+const dispatch = useDispatch();
 
   // Отслеживание скролла
   useEffect(() => {
@@ -41,19 +43,28 @@ export const Header: React.FC = () => {
     return null;
   }
 
+  const handleLogout = () => {
+    dispatch(clearUser());
+    localStorage.removeItem("token");
+    navigate("/home");
+  };
+
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <Link to={"/home"} style={{ display: "flex", flexDirection: "row", gap: "12px", alignItems: "center",textDecoration:"none" }}>
+      <Link to={"/home"} style={{ display: "flex", flexDirection: "row", gap: "12px", alignItems: "center", textDecoration: "none" }}>
         <img src='/icons/socials/logo2.svg' alt='Logo' style={{ maxHeight: "40px" }} />
         <div className={styles.logo}>MyUniversity</div>
       </Link>
       <div className={styles.userInfo}>
         {!user ?
 
-          <Button loading={Loading}  onClick={() => navigate('/auth')} variant='contained'>Войти</Button>
+          <Button loading={Loading} onClick={() => navigate('/auth')} variant='contained'>Войти</Button>
           : <>
-            <p>Вы: <Link to={`/profile/${user.id}`} style={{textDecoration:"none",color:"#000"}}> {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'} </Link></p>
-            <Button onClick={() => console.log('Logout')} size='medium' variant="contained" sx={{ backgroundColor: "#e53935" }}>
+            <p>Вы: <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color: "#000" }}> {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'} </Link></p>
+            {user.roleId!=0&&<Button variant="contained" size='medium' onClick={() => navigate("/admin")}>
+              Администрирование
+            </Button>}
+            <Button onClick={handleLogout} size='medium' variant="contained" sx={{ backgroundColor: "#e53935" }}>
               Выйти
             </Button>
 

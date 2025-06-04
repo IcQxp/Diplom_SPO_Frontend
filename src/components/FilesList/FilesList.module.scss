@@ -1,3 +1,73 @@
 .page {
-    padding-top: 40px;
-}
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .filtersContainer {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .searchBar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .filterGroup strong {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .checkboxGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .checkboxLabel input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+    &:hover {
+      background-color: #eaeaea;
+    }
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
