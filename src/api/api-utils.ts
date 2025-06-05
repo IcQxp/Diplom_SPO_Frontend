@@ -32,7 +32,7 @@ const axiosDocumentRequest = async (method: 'get' | 'post' | 'put' | 'delete', u
       'Content-Type': 'multipart/form-data',
       ...(token && { Authorization: `Bearer ${token}` }),
     };
-
+ 
     const response = await axios({ method, url, headers, data: formData });
     // return response.data;
     console.log(response);
