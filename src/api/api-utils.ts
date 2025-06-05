@@ -5,6 +5,7 @@ import { RatingWithCriteria } from "../components/Ratings/RatingWithArray";
 const axiosRequest = async (method: 'get' | 'post' | 'put' | 'delete', url: string, token?: string, data?: any) => {
   try {
     const headers = {
+      'bypass-tunnel-reminder':'1',
       'Content-Type': 'application/json',
       ...(token && { Authorization: `Bearer ${token}` }),
     };
@@ -21,6 +22,7 @@ const axiosRequest = async (method: 'get' | 'post' | 'put' | 'delete', url: stri
 const axiosDocumentRequest = async (method: 'get' | 'post' | 'put' | 'delete', url: string, token: string, formData: FormData) => {
   try {
     const headers = {
+      'bypass-tunnel-reminder':'1',
       'Content-Type': 'multipart/form-data',
       ...(token && { Authorization: `Bearer ${token}` }),
     };
