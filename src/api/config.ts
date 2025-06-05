@@ -1,5 +1,5 @@
 // export const BASE_API = "https://localhost:7003";
-export const BASE_API = "https://loose-walls-wink.loca.lt";
+export const BASE_API = "https://lyashovilyabackend.loca.lt";
 
 
 export const endpoints= {
