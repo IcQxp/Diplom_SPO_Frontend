@@ -13,7 +13,7 @@ export const GenderComponent = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch("https://localhost:7003/api/gender");
+            const response = await fetch("https://lyashovilyabackend.loca.lt/api/gender");
     
             if (!response.ok) {
               throw new Error(`Error: ${response.status} ${response.statusText}`);

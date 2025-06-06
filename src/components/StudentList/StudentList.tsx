@@ -21,7 +21,7 @@ export const StudentList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://localhost:7003/api/users/get-all");
+        const response = await fetch("https://lyashovilyabackend.loca.lt/api/users/get-all");
 
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);

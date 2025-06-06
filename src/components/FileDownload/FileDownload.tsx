@@ -11,7 +11,7 @@ const FileDownload = () => {
     }
 
     try {
-      const response = await axios.get(`https://localhost:7003/api/documents/download/${fileId}`, {
+      const response = await axios.get(`https://lyashovilyabackend.loca.lt/api/documents/download/${fileId}`, {
         responseType: 'blob', // Important
       });
 

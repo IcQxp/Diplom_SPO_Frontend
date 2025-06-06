@@ -50,7 +50,7 @@ const AuthComponent = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('https://localhost:7003/api/auth/login', {
+      const response = await axios.post('https://lyashovilyabackend.loca.lt/api/auth/login', {
         username: login,
         password: password,
         isEmployee: isEmployee,
@@ -79,7 +79,7 @@ const AuthComponent = () => {
     try {
       // Замените URL на ваш эндпоинт для получения информации о пользователе
       const token = localStorage.getItem('token');  // Убедитесь, что вы получили токен после входа
-      const response = await axios.get('https://localhost:7003/api/auth/me', {
+      const response = await axios.get('https://lyashovilyabackend.loca.lt/api/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -94,7 +94,7 @@ const AuthComponent = () => {
     try {
       // Замените URL на ваш эндпоинт для получения информации о пользователе
       const token = localStorage.getItem('token');  // Убедитесь, что вы получили токен после входа
-      const response = await axios.get('https://localhost:7003/api/auth/test', {
+      const response = await axios.get('https://lyashovilyabackend.loca.lt/api/auth/test', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
