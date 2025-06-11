@@ -29,7 +29,7 @@ function App() {
           dispatch(setUser(response.data.user));
         } catch (error) {
           console.error('Error loading user:', error);
-          localStorage.removeItem('token');
+          // localStorage.removeItem('token');
         }
       }
       setLoading(false);
