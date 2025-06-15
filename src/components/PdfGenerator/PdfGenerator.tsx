@@ -4,7 +4,7 @@ import html2canvas from "html2canvas";
 import { Bar } from "@nivo/bar";
 
 // Импортируем шрифт
-import RobotoRegular from "../../fonts/GeorgiaPro-Regular.ttf";
+import RobotoRegular from "/fonts/GeorgiaPro-Regular.ttf";
 
 // Регистрируем шрифт
 Font.register({
@@ -30,8 +30,7 @@ const PdfGenerator = () => {
 
   // Функция для преобразования графика в изображение
   const captureChart = async () => {
-    if (chartRef.current!=null)
-    {
+    if (chartRef.current != null) {
 
       const canvas = await html2canvas(chartRef.current);
       const imgData = canvas.toDataURL("image/png");
@@ -80,10 +79,10 @@ const PdfGenerator = () => {
         <PDFViewer width="100%" height="600px">
           <Document>
             <Page size="A4" >
-            {/* <Page size="A4" style={styles.page}> */}
+              {/* <Page size="A4" style={styles.page}> */}
               <View>
                 <Text style={styles.text}>График:</Text>
-                <Image src={chartImage} style={{width:"200px"}} />
+                <Image src={chartImage} style={{ width: "200px" }} />
               </View>
             </Page>
           </Document>

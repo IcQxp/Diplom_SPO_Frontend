@@ -21,7 +21,7 @@
 /* Georgia Pro Black */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-Black.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-Black.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -29,7 +29,7 @@
 /* Georgia Pro Black Italic */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-BlackItalic.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-BlackItalic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
@@ -37,7 +37,7 @@
 /* Georgia Pro Bold */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-Bold.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -45,7 +45,7 @@
 /* Georgia Pro Bold Italic */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-BoldItalic.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -53,7 +53,7 @@
 /* Georgia Pro Italic */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-Italic.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
 }
@@ -61,7 +61,7 @@
 /* Georgia Pro Light */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-Light.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
@@ -69,7 +69,7 @@
 /* Georgia Pro Light Italic */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-LightItalic.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-LightItalic.ttf') format('truetype');
   font-weight: 300;
   font-style: italic;
 }
@@ -77,7 +77,7 @@
 /* Georgia Pro Regular */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-Regular.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -85,7 +85,7 @@
 /* Georgia Pro SemiBold */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -93,7 +93,7 @@
 /* Georgia Pro SemiBold Italic */
 @font-face {
   font-family: 'GeorgiaPro';
-  src: url('/src/fonts/GeorgiaPro-SemiBoldItalic.ttf') format('truetype');
+  src: url('/fonts/GeorgiaPro-SemiBoldItalic.ttf') format('truetype');
   font-weight: 600;
   font-style: italic;
 }
@@ -101,7 +101,7 @@
 /* Pixelizer Bold */
 @font-face {
   font-family: 'PixelizerBold';
-  src: url('/src/fonts/PixelizerBold.ttf') format('truetype');
+  src: url('/fonts/PixelizerBold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -109,7 +109,7 @@
 /* Share Tech Mono Regular */
 @font-face {
   font-family: 'ShareTechMonoRegular';
-  src: url('/src/fonts/ShareTechMonoRegular.ttf') format('truetype');
+  src: url('/fonts/ShareTechMonoRegular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -122,12 +122,12 @@ react
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('src/fonts/Source-Code-Pro-Regular.woff2') format("woff2")
+  src: url('/fonts/Source-Code-Pro-Regular.woff2') format("woff2")
 }
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap
@@ -135,7 +135,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_MdIt.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_MdIt.woff2') format("woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap
@@ -143,7 +143,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_SBd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_SBd.woff2') format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap
@@ -151,7 +151,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_SBdIt.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_SBdIt.woff2') format("woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap
@@ -159,7 +159,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap
@@ -167,7 +167,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_W_BdIt.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_W_BdIt.woff2') format("woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap
@@ -175,7 +175,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_Rg.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_Rg.woff2') format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap
@@ -183,7 +183,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_It.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_It.woff2') format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap
@@ -191,7 +191,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap
@@ -199,7 +199,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_MdIt.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_MdIt.woff2') format("woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap
@@ -207,7 +207,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap
@@ -215,7 +215,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_W_BdIt.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_W_BdIt.woff2') format("woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap
@@ -223,7 +223,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Arbc_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Arbc_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -232,7 +232,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Arbc_W_SBd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Arbc_W_SBd.woff2') format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -241,7 +241,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Arbc_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Arbc_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -250,7 +250,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Arbc_W_Rg.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Arbc_W_Rg.woff2') format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -259,7 +259,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Arbc_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Arbc_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -268,7 +268,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Arbc_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Arbc_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -277,7 +277,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Cyrl_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Cyrl_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -286,7 +286,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Cyrl_W_SBd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Cyrl_W_SBd.woff2') format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -295,7 +295,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Cyrl_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Cyrl_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -304,7 +304,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Cyrl_W_Rg.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Cyrl_W_Rg.woff2') format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -313,7 +313,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Cyrl_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Cyrl_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -322,7 +322,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Cyrl_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Cyrl_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -331,7 +331,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Deva_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Deva_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -340,7 +340,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Deva_W_SBd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Deva_W_SBd.woff2') format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -349,7 +349,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Deva_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Deva_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -358,7 +358,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Deva_W_Rg.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Deva_W_Rg.woff2') format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -367,7 +367,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Deva_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Deva_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -376,7 +376,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Deva_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Deva_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -385,7 +385,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Viet_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Viet_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -394,7 +394,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Viet_W_SBd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Viet_W_SBd.woff2') format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -403,7 +403,7 @@ react
 
 @font-face {
   font-family: Optimistic Display;
-  src: url('src/fonts/Optimistic_Display_Viet_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Display_Viet_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -412,7 +412,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Viet_W_Rg.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Viet_W_Rg.woff2') format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -421,7 +421,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Viet_W_Md.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Viet_W_Md.woff2') format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -430,7 +430,7 @@ react
 
 @font-face {
   font-family: Optimistic Text;
-  src: url('src/fonts/Optimistic_Text_Viet_W_Bd.woff2') format("woff2");
+  src: url('/fonts/Optimistic_Text_Viet_W_Bd.woff2') format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

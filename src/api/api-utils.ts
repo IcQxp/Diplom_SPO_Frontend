@@ -81,6 +81,10 @@ const getTopRating = (count: number, criteriaId?: string) =>
 const getTopRatingWithCriteriaArray = (data: RatingWithCriteria) =>
   axiosRequest("post", endpoints.getTopRatingWithCriteriaArray, "", data);
 
+
+const getUserSrBallById = (studentId:number) =>
+  axiosRequest("get", endpoints.getUserSrBallById(studentId.toString()));
+
 const getAllDisciplines = () =>  axiosRequest("get",endpoints.getAllDisciplines);
 const getAllStudents = () =>  axiosRequest("get",endpoints.getAllStudents);
 const getAlldocumentTypes = () =>  axiosRequest("get",endpoints.getAllDocumentTypes);
@@ -129,4 +133,5 @@ export {
   getAllStatuses,
   getUserDocumentByID,
   updateDocumentStatus,
+  getUserSrBallById,
 }

@@ -1,42 +1,12 @@
-// import React, { useEffect } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
-
-// export const ReportComp: React.FC = () => {
-//   const location = useLocation();
-//   const { rating } = location.state || {};
-
-//   const navigate = useNavigate();
-//   console.log(rating);
-
-//   useEffect(() => {
-
-//     if (!rating)
-//       navigate("/rating");
-//   }, [rating])
-
-//   return (
-//     <div>
-//       <h1>Отчет</h1>
-//       {rating ? (
-//         <pre>{JSON.stringify(rating, null, 2)}</pre>
-//       ) : (
-//         <p>Данные рейтинга не найдены.</p>
-//       )}
-//     </div>
-//   );
-// };
-
 import { useEffect, useRef, useState } from "react";
 import { Document, Page, View, Image, Text, Font, PDFViewer } from "@react-pdf/renderer";
 import html2canvas from "html2canvas";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveRadar } from "@nivo/radar";
-import GeorgiaPro from "../../fonts/GeorgiaPro-Regular.ttf";
+import GeorgiaPro from "/fonts/GeorgiaPro-Regular.ttf";
 import { useLocation, useNavigate } from "react-router-dom";
 import { convert } from "../../models";
 import { nivoDiagramm } from "../../components/Ratings/RatingWithArray";
-// import { display } from "html2canvas/dist/types/css/property-descriptors/display";
-// import { fontWeight } from "html2canvas/dist/types/css/property-descriptors/font-weight";
 import stylesImp from "./ReportComp.module.scss"
 import { Button } from "@mui/material";
 import { StackedBarChart } from "@mui/icons-material";
@@ -357,7 +327,7 @@ export const ReportComp = () => {
                   </Text>
                 );
               })}
-              {/* Дата в левом нижнем углу */}
+              { /* Дата в левом нижнем углу */}
               <Text 
               // style={styles.date}
               >{new Date().toLocaleDateString()}</Text>

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import styles from "./Profile.module.scss";
 import { DocumentsTable } from "../../components/MyDocuments/DocumentsTable";
 import { ResponsiveRadar } from "@nivo/radar";
-import { getPostUserRating, getUserByID} from "../../api/api-utils";
+import { getPostUserRating, getUserByID, getUserSrBallById} from "../../api/api-utils";
 import { Student } from "../../models";
 import { nivoDiagramm } from "../../components/Ratings/RatingWithArray";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
@@ -19,7 +19,7 @@ export const Profile = () => {
   const [userRating, setUserRating] = useState<nivoDiagramm>();
   const [loading, setLoading] = useState<boolean>(true);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); // Состояние для управления popup
-
+  const [srBall,setSrBall] = useState<number>(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -32,6 +32,7 @@ export const Profile = () => {
         // Получаем данные пользователя по его ID или имени пользователя
         const fetchedUserData = await getUserByID(username);
         const rating = (await getPostUserRating([Number(fetchedUserData.data.studentId)])).data;
+        setSrBall((await getUserSrBallById(Number(username))).data.value);
         setUserData(fetchedUserData.data);
         setUserRating(rating);
         // setCriteriaKeys(Object.keys(rating.data.ratings[0] || {}));
@@ -77,6 +78,11 @@ export const Profile = () => {
           <div>
             <p className={styles.personalInfoText}>
               <strong>Группа:</strong> {userData.group?.groupNumber || "Не указана"}
+            </p>
+          </div>
+          <div>
+            <p className={styles.personalInfoText}>
+              <strong>Средний балл:</strong> {srBall || "Не указан"}
             </p>
           </div>
         </div>

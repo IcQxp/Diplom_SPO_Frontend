@@ -12,6 +12,7 @@ export const endpoints= {
     getUserRating: (userID:number) => `${BASE_API}/api/rating/${userID}`,
     getAllCritea: `${BASE_API}/api/rating/categories`,
     getUserByID:  (userID:string) =>  `${BASE_API}/api/students/${userID}`,
+    getUserSrBallById:  (userID:string) =>  `${BASE_API}/api/rating/grades/${userID}/avg`,
     getTopRating: (count:number,criteriaId?:string) => `${BASE_API}/api/rating/top-students?count=${count}&criteriaId=${criteriaId&&criteriaId}`,
     getTopRatingWithCriteriaArray: `${BASE_API}/api/rating/top-students-array`,
     getUsersRating: `${BASE_API}/api/rating/GetUsersRatings`,
