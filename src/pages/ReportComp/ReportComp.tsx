@@ -76,24 +76,45 @@ export const ReportComp = () => {
     ...rating,
     keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
   }));
+  // useEffect(() => {
+
+  //   if (!rating)
+  //     navigate("/rating");
+  //   else {
+  //     setRatingBar(convert({
+  //       ...rating,
+  //       keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
+  //     }));
+  //     setRatingRadar({
+  //       ...rating,
+  //       keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
+  //     });
+  //   }
+  //   console.log(ratingBar);
+  //   console.log(ratingRadar);
+  // }, [rating])
+
   useEffect(() => {
+  if (!rating || !rating.keys || rating.keys.length === 0) {
+    navigate("/rating");
+    return;
+  }
 
-    if (!rating)
-      navigate("/rating");
-    else {
-      setRatingBar(convert({
-        ...rating,
-        keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
-      }));
-      setRatingRadar({
-        ...rating,
-        keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
-      });
-    }
-    console.log(ratingBar);
-    console.log(ratingRadar);
-  }, [rating])
+  try {
+    setRatingBar(convert({
+      ...rating,
+      keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]),
+    }));
 
+    setRatingRadar({
+      ...rating,
+      keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]),
+    });
+  } catch (error) {
+    console.error("Ошибка при обработке рейтинга:", error);
+    navigate("/rating");
+  }
+}, [rating]);
 
   const barRef = useRef(null); // Ссылка на столбчатый график
   const radarRef = useRef(null); // Ссылка на радарный график
