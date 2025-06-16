@@ -146,7 +146,7 @@ export const ReportComp = () => {
               data={ratingBar.data}
               keys={ratingBar.keys}
               indexBy="criteria"
-              margin={{ top: 50, right: 50, bottom: 170, left: 50 }}
+              margin={{ top: 50, right: 200, bottom: 170, left: 50 }}
               padding={0.3}
               colors={{ scheme: "accent" }}
               legends={[
@@ -267,7 +267,7 @@ export const ReportComp = () => {
         <PDFViewer width="100%" height="800px">
           <Document>
             <Page size="A4" 
-            // style={styles.page}
+            style={styles.page as any}
              orientation="landscape">
               {/* Заголовок */}
               <Text style={styles.header}>{title}</Text>
@@ -280,11 +280,11 @@ export const ReportComp = () => {
                 </View>
               )}
               <Text 
-              // style={styles.date}
+              style={styles.date as any}
               >{new Date().toLocaleDateString()}</Text>
             </Page>
             <Page size="A4" 
-            // style={styles.page}
+            style={styles.page as any}
             >
               {/* Радарный график */}
               {radarImage && (
@@ -295,10 +295,10 @@ export const ReportComp = () => {
               )}
 
               <Text 
-              // style={styles.date}
+              style={styles.date as any}
               >{new Date().toLocaleDateString()}</Text>
-              {/* </Page>
-            <Page size="A4" style={styles.page}> */}
+              </Page>
+            <Page size="A4" style={styles.page as any}>
               <Text style={styles.header}>Итог:</Text>
               {ratingBar && ratingBar.data.map((student, index) => {
                 const studentName = student.criteria;
@@ -329,7 +329,7 @@ export const ReportComp = () => {
               })}
               { /* Дата в левом нижнем углу */}
               <Text 
-              // style={styles.date}
+              style={styles.date as any}
               >{new Date().toLocaleDateString()}</Text>
             </Page>
           </Document>

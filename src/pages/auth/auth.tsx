@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import styles from "./auth.module.scss"
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store/userSlice';
 import Input from '@mui/joy/Input';
@@ -42,11 +42,26 @@ const AuthComponent = () => {
   const [password, setPassword] = useState('');
   const [isEmployee, setIsEmployee] = useState<boolean>(false);
   const dispatch = useDispatch();
+const location = useLocation();
 
-  const user = useSelector((state: RootState) => state.user.userInfo);
+const user = useSelector((state: RootState) => state.user.userInfo);
+const fromPath = new URLSearchParams(location.search).get('redirect') || '/home'; // ✅ Получаем путь для редиректа
 
- if (user)
-  navigate("/Home");
+// Используем useEffect для навигации
+useEffect(() => {
+  console.log("User changed, navigating to /Home", user);
+
+  if (user) {
+    // navigate("/Home");
+    navigate(fromPath, { replace: true }); // ✅ Редирект уже не фиксированный
+  }
+}, [user, navigate]);
+
+
+  
+console.log(fromPath);
+
+
 
   const handleLogin = async () => {
     try {
@@ -63,9 +78,12 @@ const AuthComponent = () => {
       }
       alert(response.status == 200 ? "Успешно" : "Ошибка");
       if (response.status == 200) {
-        navigate("/home");
+        // navigate("/home");
 
+
+        navigate(fromPath, { replace: true }); // ✅ Редирект уже не фиксированный
         dispatch(setUser(response.data.user));
+
       }
     } catch (err: any) {
       console.error(err);

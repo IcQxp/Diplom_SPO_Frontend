@@ -187,7 +187,7 @@ return  <Outlet/>;
               data={ratingRadar.data}
               keys={ratingRadar.keys}
               indexBy="criteria"
-              margin={{ top: 200, right: 80, bottom: 0, left: 100 }}
+              margin={{ top: 20, right: 80, bottom: 0, left: 100 }}
               colors={{ scheme: "accent" }}
               dotSize={8}
               dotColor={{ theme: "background" }}
