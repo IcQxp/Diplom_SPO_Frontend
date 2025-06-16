@@ -71,3 +71,15 @@
   background-color: #dc3545;
   color: white;
 }
+
+
+
+@media (max-width: 480px) {
+  /* Стили для мобильных телефонов */
+  .whoiam  {
+    display: none;
+  }
+    .logo {
+      display: none;
+    }
+}

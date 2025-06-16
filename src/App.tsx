@@ -15,6 +15,7 @@ import { RatingPage } from './pages/Ratings/RatingPage/RatingPage';
 import { ReportComp } from './pages/ReportComp/ReportComp';
 import PdfGenerator from './components/PdfGenerator/PdfGenerator';
 import { AdminPage } from './pages/AdminPage/AdminPage';
+import { LoadingContainer } from './components/LoadingContainer/LoadingContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function App() {
   }, [dispatch, token]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingContainer/>;
   }
 
   return (

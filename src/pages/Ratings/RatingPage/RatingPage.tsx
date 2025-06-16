@@ -297,7 +297,7 @@ return  <Outlet/>;
               }
 
               // Формируем ссылку на профиль
-              const profileLink = `http://localhost:5173/profile/${studentId}`;
+              const profileLink = `https://lyashovilyadiplom.vercel.app/profile/${studentId}`;
 
               // Определяем стили для карточек
               let cardStyle = {};
@@ -308,19 +308,34 @@ return  <Outlet/>;
               }
 
               return (
-                <Link href={profileLink} target="_blank" rel="noopener noreferrer" underline="none" key={name}>
-                  <Card
-                    sx={{
-                      width: "200px",
-                      boxShadow: 3,
-                      border: "2px solid transparent",
-                      ...cardStyle,
-                      transition: "transform 0.2s",
-                      "&:hover": {
-                        transform: "scale(1.05)",
-                      },
-                    }}
-                  >
+                // <Link href={profileLink} target="_blank" rel="noopener noreferrer" underline="none" key={name}>
+                //   <Card
+                //     sx={{
+                //       width: "200px",
+                //       boxShadow: 3,
+                //       border: "2px solid transparent",
+                //       ...cardStyle,
+                //       transition: "transform 0.2s",
+                //       "&:hover": {
+                //         transform: "scale(1.05)",
+                //       },
+                //     }}
+                //   >
+        <Card
+          sx={{
+            width: { xs: "100%", sm: "calc(50% - 10px)", md: "200px" }, // Полная ширина на мобильных, две в ряд на планшетах
+            boxShadow: 3,
+            border: "2px solid transparent",
+            ...cardStyle,
+            transition: "transform 0.2s",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+            marginBottom: "20px", // Добавляем отступ между строками
+          }}
+        >
+                <Link href={profileLink} target="_blank" rel="noopener noreferrer" underline="none" key={name} style={{width:"100%", color:"black",textDecoration:"none"}}>
+
                     <CardContent>
                       <Typography variant="h6" sx={{ fontWeight: "bold", textAlign: "center" }}>
                         {name}
@@ -329,8 +344,9 @@ return  <Outlet/>;
                         Итоговый балл: {score}
                       </Typography>
                     </CardContent>
-                  </Card>
                 </Link>
+
+                  </Card>
               );
             })}
           </Box>
