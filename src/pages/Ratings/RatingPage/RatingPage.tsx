@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Checkbox, FormControlLabel, Typography, Card, CardContent, Link, responsiveFontSizes } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Checkbox, FormControlLabel, Typography, Card, CardContent, Link } from "@mui/material";
 import styles from "./RatingPage.module.scss";
 import { getTopRatingWithCriteriaArray, getAllCritea } from "../../../api/api-utils";
 import { ResponsiveBar } from "@nivo/bar";

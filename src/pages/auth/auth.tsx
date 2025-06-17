@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
 import styles from "./auth.module.scss"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../store/userSlice';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-// import LinearProgress from '@mui/joy/LinearProgress';
-// import Typography from '@mui/joy/Typography';
 import Key from '@mui/icons-material/Key';
 import { Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
 import { RootState } from '../../store/store';
-
-
-interface JwtPayloadNew extends JwtPayload {
-  unique_name: string
-}
 
 export interface UserResponse {
   lastname?: string;
@@ -34,30 +26,27 @@ export interface UserResponse {
 }
 
 const AuthComponent = () => {
-  const [token, setToken] = useState('');
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [isEmployee, setIsEmployee] = useState<boolean>(false);
   const dispatch = useDispatch();
-const location = useLocation();
+  const location = useLocation();
 
-const user = useSelector((state: RootState) => state.user.userInfo);
-const fromPath = new URLSearchParams(location.search).get('redirect') || '/home'; // ✅ Получаем путь для редиректа
+  const user = useSelector((state: RootState) => state.user.userInfo);
+  const fromPath = new URLSearchParams(location.search).get('redirect') || '/home'; // ✅ Получаем путь для редиректа
 
-// Используем useEffect для навигации
-useEffect(() => {
+  // Используем useEffect для навигации
+  useEffect(() => {
 
-  if (user) {
-    // navigate("/Home");
-    navigate(fromPath, { replace: true }); // ✅ Редирект уже не фиксированный
-  }
-}, [user, navigate]);
+    if (user) {
+      // navigate("/Home");
+      navigate(fromPath, { replace: true }); // ✅ Редирект уже не фиксированный
+    }
+  }, [user, navigate]);
 
 
-  
+
 
 
 
@@ -70,9 +59,7 @@ useEffect(() => {
       });
 
       if (response.data.token) {
-        setToken(response.data.token);
         localStorage.setItem('token', response.data.token);
-        setError("");
       }
       alert(response.status == 200 ? "Успешно" : "Ошибка");
       if (response.status == 200) {
@@ -85,56 +72,6 @@ useEffect(() => {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.response?.data?.message || 'Ошибка при получении токена');
-    }
-  };
-
-
-
-  const GetMe = async () => {
-    try {
-      // Замените URL на ваш эндпоинт для получения информации о пользователе
-      const token = localStorage.getItem('token');  // Убедитесь, что вы получили токен после входа
-      const response = await axios.get('https://lyashovilyabackend.loca.lt/api/auth/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      setError('Ошибка при получении токена');
-    }
-  };
-  const TestC = async () => {
-    try {
-      // Замените URL на ваш эндпоинт для получения информации о пользователе
-      const token = localStorage.getItem('token');  // Убедитесь, что вы получили токен после входа
-      const response = await axios.get('https://lyashovilyabackend.loca.lt/api/auth/test', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      setError('Ошибка при получении токена');
-    }
-  };
-
-
-  const handleGetUsername = () => {
-    const storedToken = localStorage.getItem('token');
-
-    if (storedToken) {
-      try {
-        const decoded = jwtDecode<JwtPayloadNew>(storedToken);
-        setUsername(decoded.unique_name); // Предполагается, что имя пользователя хранится в утверждении 'name'
-        setError('');
-      } catch (err) {
-        console.error('Invalid token', err);
-        setError('Неверный токен');
-      }
-    } else {
-      setError('Токен не найден');
     }
   };
 
@@ -196,34 +133,6 @@ useEffect(() => {
           <Button size="small" variant="contained" onClick={handleLogin}>Войти</Button>
 
         </div>
-      </div>
-      <div style={{ display: 'none' }} >
-        <h2>Аутентификация</h2>
-
-        <button onClick={handleLogin}>Получить токен</button>
-        <button onClick={handleGetUsername}>Получить имя по токену</button>
-        <button onClick={GetMe}>GetMe</button>
-        <button onClick={TestC}>test</button>
-
-        {token && (
-          <div>
-            <h3>Ваш токен:</h3>
-            <p>{token}</p>
-          </div>
-        )}
-
-        {username && (
-          <div>
-            <h3>Имя пользователя:</h3>
-            <p>{username}</p>
-          </div>
-        )}
-
-        {error && (
-          <div>
-            <p style={{ color: 'red' }}>{error}</p>
-          </div>
-        )}
       </div>
     </main>
   );
