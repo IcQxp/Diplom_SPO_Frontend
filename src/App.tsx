@@ -13,13 +13,12 @@ import { setUser } from './store/userSlice';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { RatingPage } from './pages/Ratings/RatingPage/RatingPage';
 import { ReportComp } from './pages/ReportComp/ReportComp';
-import PdfGenerator from './components/PdfGenerator/PdfGenerator';
 import { AdminPage } from './pages/AdminPage/AdminPage';
 import { LoadingContainer } from './components/LoadingContainer/LoadingContainer';
 
 function App() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -49,7 +48,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/Home" />} />
           <Route path="Home" element={<HomePage />} />
-          <Route path='PDF' element={<PdfGenerator/>}/>
+          {/* <Route path='PDF' element={<PdfGenerator/>}/> */}
           <Route element={<PrivateRoute />}>
             <Route path="Admin" element={<AdminPage/>} />
           </Route>

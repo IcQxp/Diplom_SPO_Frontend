@@ -33,7 +33,6 @@ export const HomePage: FC = () => {
       try {
         const criteriaResponse: Criterion[] = (await getAllCritea()).data;
         const response = await getTopRatingWithCriteriaArray({ count: 3, criteriaIDs: criteriaResponse.map(item => item.criteriaId) });
-        console.log(response);
         setRating(response.data);
       }
       catch (error) {

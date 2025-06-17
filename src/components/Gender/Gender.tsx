@@ -32,7 +32,6 @@ export const GenderComponent = () => {
     
         fetchData();
       }, []);
-      console.log(Gender)
     return (<>
     {Gender?.map(element => <div>
 

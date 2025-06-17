@@ -17,7 +17,6 @@ const axiosRequest = async (method: 'get' | 'post' | 'put' | 'delete', url: stri
     };
 
     const response = await axios({ method, url, headers, data });
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Ошибка при выполнении запроса:", error);
@@ -35,7 +34,6 @@ const axiosDocumentRequest = async (method: 'get' | 'post' | 'put' | 'delete', u
  
     const response = await axios({ method, url, headers, data: formData });
     // return response.data;
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Ошибка при выполнении запроса:", error);

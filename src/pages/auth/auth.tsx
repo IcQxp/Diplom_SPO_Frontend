@@ -49,7 +49,6 @@ const fromPath = new URLSearchParams(location.search).get('redirect') || '/home'
 
 // Используем useEffect для навигации
 useEffect(() => {
-  console.log("User changed, navigating to /Home", user);
 
   if (user) {
     // navigate("/Home");
@@ -59,7 +58,6 @@ useEffect(() => {
 
 
   
-console.log(fromPath);
 
 
 
@@ -102,7 +100,6 @@ console.log(fromPath);
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log(response.data); // Выводим данные пользователя
     } catch (err) {
       console.error(err);
       setError('Ошибка при получении токена');
@@ -117,7 +114,6 @@ console.log(fromPath);
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log(response.data); // Выводим данные пользователя
     } catch (err) {
       console.error(err);
       setError('Ошибка при получении токена');
@@ -132,8 +128,6 @@ console.log(fromPath);
       try {
         const decoded = jwtDecode<JwtPayloadNew>(storedToken);
         setUsername(decoded.unique_name); // Предполагается, что имя пользователя хранится в утверждении 'name'
-        console.log(decoded.unique_name)
-        console.log(decoded)
         setError('');
       } catch (err) {
         console.error('Invalid token', err);

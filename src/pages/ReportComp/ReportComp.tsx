@@ -67,15 +67,10 @@ export const ReportComp = () => {
   const { rating } = location.state || {};
 
   const navigate = useNavigate();
-  console.log(rating);
 
   const [ratingBar, setRatingBar] = useState<nivoDiagramm>();
   const [ratingRadar, setRatingRadar] = useState<nivoDiagramm>();
-  console.log(rating);
-  console.log(convert({
-    ...rating,
-    keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
-  }));
+
   // useEffect(() => {
 
   //   if (!rating)
@@ -90,8 +85,6 @@ export const ReportComp = () => {
   //       keys: rating.keys.map((keyObj: any) => Object.values(keyObj)[0]), // Преобразование keys
   //     });
   //   }
-  //   console.log(ratingBar);
-  //   console.log(ratingRadar);
   // }, [rating])
 
   useEffect(() => {

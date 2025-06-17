@@ -29,12 +29,10 @@ export const RatingWithArray = () => {
 
   useEffect(() => {
     const FD = async () => {
-      console.log(ratingWithCriteriaData)
       const response = await getTopRatingWithCriteriaArray(ratingWithCriteriaData)
       setData(response.data);
 const responseCriteria = await getAllCritea();
 setAllCriteria(responseCriteria.data);
-      console.log(responseCriteria);
     }
     FD();
 

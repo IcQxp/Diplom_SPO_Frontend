@@ -140,7 +140,6 @@ export const DocumentPage = () => {
           //  public int? Score { get; set; }
         };
 
-        // console.log(      JSON.stringify(payload));
         await axios.put(`${API_URL}/api/documents/update-status/${id}`, payload);
       } catch (error) {
         console.error('Ошибка при обновлении статуса документа:', error);
@@ -197,7 +196,6 @@ export const DocumentPage = () => {
         //  public int? Score { get; set; }
       };
 
-      // console.log(      JSON.stringify(payload));
       await axios.put(`${API_URL}/api/documents/update-status/${id}`, payload);
       alert('Документ успешно проверен!');
       navigate('/rating/docs');

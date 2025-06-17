@@ -40,7 +40,6 @@ export const DocumentsTable: FC<DocumentsTableProps> = ({ id }) => {
   
     if (file && selectedDocumentId && token) {
       const response = await updateDocument(token,selectedDocumentId,formData)
-      console.log(response);
     }
   }
 

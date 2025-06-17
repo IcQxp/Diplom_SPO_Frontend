@@ -11,8 +11,21 @@ import DataTable from "./DataTable";
 import SearchBar from "./SearchBar";
 import { getAllCritea, getAllDisciplines, getAllDocuments, getAlldocumentTypes, getAllEmployees, getAllGrades, getAllGroups, getAllLessons, getAllRoles, getAllStudents } from "../../api/api-utils";
 import { Criterion, Discipline, Document, DocumentType, Employee, Grade, Group, Lesson, Role, Student } from "../../models";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 export const AdminPage = () => {
+  const navigate = useNavigate();
+
+  const user = useSelector((state: RootState) => state.user.userInfo);
+  console.log(user);
+  if (user?.roleId != 1) {
+    navigate("/home");
+    return;
+  }
+
+
   const [tabValue, setTabValue] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const token = localStorage.getItem('token');
@@ -39,6 +52,8 @@ export const AdminPage = () => {
   const [isGroupsLoading, setIsGroupsLoading] = useState(false);
   const [isLessonsLoading, setIsLessonsLoading] = useState(false);
   const [isRolesLoading, setIsRolesLoading] = useState(false);
+
+
 
 
 

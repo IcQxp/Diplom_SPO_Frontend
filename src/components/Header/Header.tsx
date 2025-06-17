@@ -60,8 +60,8 @@ const dispatch = useDispatch();
 
           <Button loading={Loading} onClick={() => navigate('/auth')} variant='contained'>Войти</Button>
           : <>
-            <p className={styles.whoiam}>Вы: <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color: "#000" }}> {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'} </Link></p>
-            {user.roleId!=0&&<Button variant="contained" size='medium' sx={{fontSize:"min(3vw, 16px)"}} onClick={() => navigate("/admin")}>
+{ user.roleId===0&&           <p className={styles.whoiam}>Вы: <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color: "#000" }}> {`${user.lastname || ''} ${user.firstname || ''}`.trim() || 'Unknown User'} </Link></p>}
+            {user.roleId===1&&<Button variant="contained" size='medium' sx={{fontSize:"min(3vw, 16px)"}} onClick={() => navigate("/admin")}>
               Администрирование
             </Button>}
             <Button onClick={handleLogout} size='medium' variant="contained" sx={{ backgroundColor: "#e53935", fontSize:"min(3vw, 16px)" }}>

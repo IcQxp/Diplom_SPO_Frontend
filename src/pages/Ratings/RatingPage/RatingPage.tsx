@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Checkbox, FormControlLabel, Typography, Card, CardContent, Link } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Checkbox, FormControlLabel, Typography, Card, CardContent, Link, responsiveFontSizes } from "@mui/material";
 import styles from "./RatingPage.module.scss";
 import { getTopRatingWithCriteriaArray, getAllCritea } from "../../../api/api-utils";
 import { ResponsiveBar } from "@nivo/bar";
@@ -21,7 +21,6 @@ interface RatingResponse {
 
 export const RatingPage = () => {
 const location = useLocation();
-console.log(location)
 if (location.pathname.toLowerCase()!="/rating" && location.pathname.toLowerCase()!="/rating/")
 return  <Outlet/>;
 
@@ -352,11 +351,11 @@ return  <Outlet/>;
           </Box>
         </Box>
       )}
-      {rating&& <Box sx={{marginTop:"30px",display:"flex",flexDirection:"row",gap:"15px"}}>
-      <Button startIcon={<ModeEdit/>} variant="contained" size="medium" onClick={()=>{navigate("/rating/report",{state:{ rating:rating}})}}>
+      {rating&& <Box sx={{marginTop:"30px",display:"flex",gap:"15px" , flexDirection: { xs: "column", sm: "row" }}} >
+      <Button startIcon={<ModeEdit/>} sx={{fontSize:"min(3vw,14px)"}} variant="contained" size="medium" onClick={()=>{navigate("/rating/report",{state:{ rating:rating}})}}>
         Сформировать отчет
       </Button>
-      <Button startIcon={<LibraryBooks/>}  variant="contained" size="medium" onClick={()=>{navigate("/rating/docs")}}>
+      <Button startIcon={<LibraryBooks/>}  sx={{fontSize:"min(3vw,14px)"}}  variant="contained" size="medium" onClick={()=>{navigate("/rating/docs")}}>
         Перейти к проверке документов
       </Button>
       </Box>
